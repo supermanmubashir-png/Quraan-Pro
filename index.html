@@ -14,21 +14,19 @@ body{
  color:white;
 }
 
-/* GLASS */
+/* GLASS UI */
 .glass{
  background:rgba(255,255,255,0.1);
  backdrop-filter:blur(15px);
  border-radius:15px;
- box-shadow:0 4px 20px rgba(0,0,0,0.3);
 }
 
 /* TOP */
 .top{
  display:flex;
- gap:6px;
+ flex-wrap:wrap;
+ gap:5px;
  padding:10px;
- position:sticky;
- top:0;
 }
 
 /* BUTTON */
@@ -47,27 +45,24 @@ button{
  width:250px;
  height:100%;
  background:rgba(0,0,0,0.7);
- backdrop-filter:blur(20px);
  transition:.3s;
  overflow:auto;
 }
 #sidebar.active{left:0;}
 
 .surah{
- padding:12px;
- border-bottom:1px solid rgba(255,255,255,0.1);
+ padding:10px;
+ border-bottom:1px solid #333;
  cursor:pointer;
 }
 
 /* AYAH */
 .ayah{
- margin:12px;
- padding:12px;
- transition:.3s;
+ margin:10px;
+ padding:10px;
 }
 .activeAyah{
  border:2px solid #00e5ff;
- background:rgba(0,229,255,0.1);
 }
 
 /* ARABIC */
@@ -78,10 +73,24 @@ button{
 
 /* TAJWEED COLORS */
 .madd{color:#00e5ff;}
-.ghunna{color:#ff4081;}
+.ikhfa{color:#ab47bc;}
 .qalqala{color:#ffd600;}
-.ikhfa{color:#69f0ae;}
+.noon,.tanween{color:#ff4081;}
+.meem{color:#00e676;}
+.idgham{color:#ff9800;}
+.silent{color:#777;}
 
+/* LEGEND POPUP */
+#legend{
+ position:fixed;
+ top:10%;
+ left:10%;
+ width:80%;
+ background:#111;
+ padding:15px;
+ border-radius:10px;
+ display:none;
+}
 </style>
 </head>
 
@@ -90,30 +99,48 @@ button{
 <div class="top glass">
  <button onclick="toggleSidebar()">☰</button>
  <button onclick="toggleDark()">🌙</button>
+ <button onclick="toggleTajweed()">🧠 Tajweed</button>
+ <button onclick="showLegend()">📖 Rules</button>
+ <button onclick="installApp()">📱 Install</button>
 </div>
 
-<div style="padding:10px">
- Translation:
- <select onchange="changeTrans(this.value)">
-  <option value="en.asad">Asad</option>
-  <option value="en.sahih">Sahih</option>
-  <option value="ur.jalandhry">Urdu</option>
- </select>
-</div>
-
-<input class="glass" placeholder="Search..." oninput="search(this.value)" style="width:95%;margin:10px;padding:10px;">
+<input placeholder="Search..." oninput="search(this.value)" style="width:95%;margin:10px;padding:10px;">
 
 <div id="sidebar"></div>
 <div id="content"></div>
 
+<!-- LEGEND -->
+<div id="legend">
+ <h3>Tajweed Rules 🎨</h3>
+
+ <p class="madd">Blue → Madd (Stretch)</p>
+ <p class="ikhfa">Purple → Ikhfa (Hidden)</p>
+ <p class="qalqala">Yellow → Qalqalah (Echo)</p>
+ <p class="noon">Pink → Noon Saakin / Tanween</p>
+ <p class="meem">Green → Meem Saakin</p>
+ <p class="idgham">Orange → Idgham (Merge)</p>
+ <p class="silent">Gray → Silent</p>
+
+ <button onclick="closeLegend()">Close</button>
+</div>
+
 <script>
 let Quran=[],currentSurah=null;
 let audio=new Audio();
-let reciter="ar.alafasy";
-let translation="en.asad";
+let tajweedOn=true;
 let currentIndex=0;
+let deferredPrompt;
 
-// LOAD
+// PWA INSTALL
+window.addEventListener('beforeinstallprompt', e=>{
+ e.preventDefault();
+ deferredPrompt=e;
+});
+function installApp(){
+ if(deferredPrompt) deferredPrompt.prompt();
+}
+
+// LOAD QURAN
 async function loadQuran(){
  let r=await fetch("https://api.alquran.cloud/v1/quran/quran-uthmani");
  Quran=(await r.json()).data.surahs;
@@ -122,20 +149,25 @@ async function loadQuran(){
 
 // SIDEBAR
 function renderSidebar(list){
- sidebar.innerHTML=list.map(s=>
- `<div class="surah" onclick="openSurah(${s.number})">${s.number}. ${s.englishName}</div>`
- ).join("");
+ sidebar.innerHTML=list.map(s=>`<div class="surah" onclick="openSurah(${s.number})">${s.number}. ${s.englishName}</div>`).join("");
 }
 function toggleSidebar(){sidebar.classList.toggle("active");}
 function closeSidebar(){sidebar.classList.remove("active");}
 
-// TAJWEED
-function tajweed(t){
- return t
-  .replace(/م/g,'<span class="ghunna">م</span>')
-  .replace(/ن/g,'<span class="ghunna">ن</span>')
-  .replace(/ق/g,'<span class="qalqala">ق</span>')
-  .replace(/ا/g,'<span class="madd">ا</span>');
+// TAJWEED ENGINE
+function tajweed(text){
+ if(!tajweedOn) return text;
+
+ let t=text;
+ t=t.replace(/([ًٌٍ])/g,'<span class="tanween">$1</span>');
+ t=t.replace(/نْ/g,'<span class="noon">نْ</span>');
+ t=t.replace(/مْ/g,'<span class="meem">مْ</span>');
+ t=t.replace(/[اوي]/g,'<span class="madd">$&</span>');
+ t=t.replace(/[قطبجد]/g,'<span class="qalqala">$&</span>');
+ t=t.replace(/[تثجدذرزسشصضطظفقك]/g,'<span class="ikhfa">$&</span>');
+ t=t.replace(/[يرملون]/g,'<span class="idgham">$&</span>');
+ t=t.replace(/ْ/g,'<span class="silent">ْ</span>');
+ return t;
 }
 
 // OPEN SURAH
@@ -143,7 +175,7 @@ async function openSurah(num){
  closeSidebar();
  currentSurah=Quran.find(s=>s.number==num);
 
- let t=await fetch(`https://api.alquran.cloud/v1/surah/${num}/${translation}`);
+ let t=await fetch(`https://api.alquran.cloud/v1/surah/${num}/en.asad`);
  let trans=(await t.json()).data.ayahs;
 
  let html=`<h2 style="padding:10px">${currentSurah.englishName}</h2>`;
@@ -162,17 +194,16 @@ async function openSurah(num){
  content.innerHTML=html;
 }
 
-// PLAY
+// AUDIO + HIGHLIGHT
 function play(i){
  currentIndex=i;
  highlight(i);
 
- let num=currentSurah.ayahs[i].number;
- audio.src=`https://cdn.islamic.network/quran/audio/128/${reciter}/${num}.mp3`;
+ let n=currentSurah.ayahs[i].number;
+ audio.src=`https://cdn.islamic.network/quran/audio/128/ar.alafasy/${n}.mp3`;
  audio.play();
 }
 
-// AUTO NEXT + HIGHLIGHT
 audio.onended=()=>{
  currentIndex++;
  if(currentIndex<currentSurah.ayahs.length){
@@ -193,16 +224,18 @@ function search(q){
  renderSidebar(Quran.filter(s=>s.englishName.toLowerCase().includes(q)));
 }
 
-// SETTINGS
-function changeTrans(t){
- translation=t;
+// UI
+function toggleDark(){document.body.style.background="black";}
+function toggleTajweed(){
+ tajweedOn=!tajweedOn;
  if(currentSurah) openSurah(currentSurah.number);
 }
 
-// UI
-function toggleDark(){document.body.style.background="black";}
+// LEGEND
+function showLegend(){legend.style.display="block";}
+function closeLegend(){legend.style.display="none";}
 
-// PWA
+// SW
 if('serviceWorker' in navigator){
  navigator.serviceWorker.register('./service-worker.js');
 }
