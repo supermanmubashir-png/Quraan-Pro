@@ -9,18 +9,27 @@
 
 <style>
 body{margin:0;font-family:sans-serif;background:#0f2027;color:white;}
-.glass{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:10px;}
 .top{display:flex;flex-wrap:wrap;gap:5px;padding:10px;}
-button{padding:8px;border:none;border-radius:8px;background:#ffffff22;color:white;}
+button{padding:8px;border:none;border-radius:8px;background:#00e5ff;color:black;}
 
-#sidebar{position:fixed;left:-260px;width:250px;height:100%;background:#111;overflow:auto;transition:.3s;}
+#sidebar{position:fixed;left:-260px;width:250px;height:100%;background:#111;overflow:auto;transition:.3s;z-index:2000;}
 #sidebar.active{left:0;}
-#sidebar div{padding:12px;border-bottom:1px solid #333;cursor:pointer;}
-#sidebar div:hover{background:#00e5ff33;}
+#sidebar div{padding:12px;border-bottom:1px solid #333;}
 
-.ayah{margin:10px;padding:10px;}
-.activeAyah{border:2px solid cyan;}
-.arabic{font-size:24px;text-align:right;}
+.ayah{margin:10px;padding:10px;background:#ffffff11;border-radius:10px;}
+.active{border:2px solid cyan;}
+.arabic{font-size:22px;text-align:right;}
+
+.panel{
+ position:fixed;
+ top:10%;left:10%;
+ width:80%;
+ background:#111;
+ padding:15px;
+ border-radius:10px;
+ z-index:9999;
+ display:none;
+}
 
 /* Tajweed */
 .madd{color:#00e5ff;}
@@ -28,22 +37,29 @@ button{padding:8px;border:none;border-radius:8px;background:#ffffff22;color:whit
 .noon{color:#ff4081;}
 .meem{color:#00e676;}
 
-.panel{position:fixed;top:10%;left:10%;width:80%;background:#111;padding:15px;border-radius:10px;display:none;}
+/* Compass */
+#compass{
+ width:200px;height:200px;border:4px solid white;border-radius:50%;
+ position:relative;margin:auto;
+}
+#needle{
+ width:4px;height:90px;background:red;
+ position:absolute;top:10px;left:50%;
+ transform-origin:bottom;
+}
 </style>
 </head>
 
 <body>
 
-<div class="top glass">
+<div class="top">
  <button onclick="toggleSidebar()">☰</button>
- <button onclick="toggleDark()">🌙</button>
  <button onclick="toggleTajweed()">🧠</button>
  <button onclick="openGoto()">🎯</button>
  <button onclick="openSettings()">⚙</button>
  <button onclick="showLegend()">📖</button>
  <button onclick="getNamaz()">🕌</button>
- <button onclick="getQiblah()">🧭</button>
- <button onclick="installApp()">📱</button>
+ <button onclick="openCompass()">🧭</button>
 </div>
 
 <input placeholder="Search..." oninput="search(this.value)" style="width:95%;margin:10px;padding:10px;">
@@ -53,21 +69,12 @@ button{padding:8px;border:none;border-radius:8px;background:#ffffff22;color:whit
 
 <!-- SETTINGS -->
 <div id="settings" class="panel">
-<h3>Settings</h3>
 Reciter:
 <select onchange="setReciter(this.value)">
 <option value="ar.alafasy">Alafasy</option>
 <option value="ar.abdurrahmaansudais">Sudais</option>
-</select><br><br>
-
-Translation:
-<select onchange="changeTrans(this.value)">
-<option value="en.asad">Asad</option>
-<option value="en.sahih">Sahih</option>
-<option value="ur.jalandhry">Urdu</option>
-</select><br><br>
-
-<button onclick="resume()">Resume ⭐</button>
+</select>
+<br><br>
 <button onclick="settings.style.display='none'">Close</button>
 </div>
 
@@ -88,20 +95,20 @@ Ayah: <input id="ayahInput"><br><br>
 <button onclick="legend.style.display='none'">Close</button>
 </div>
 
+<!-- COMPASS -->
+<div id="compassPanel" class="panel">
+<h3>Qiblah Compass</h3>
+<div id="compass"><div id="needle"></div></div>
+<button onclick="compassPanel.style.display='none'">Close</button>
+</div>
+
 <script>
 let Quran=[],currentSurah=null;
 let audio=new Audio();
 let currentIndex=0;
+let loop=false,cont=true;
 let tajweedOn=true;
-let translation="en.asad";
-let reciter=localStorage.getItem("reciter")||"ar.alafasy";
-let deferredPrompt;
-
-// INSTALL
-window.addEventListener('beforeinstallprompt', e=>{
- e.preventDefault(); deferredPrompt=e;
-});
-function installApp(){if(deferredPrompt) deferredPrompt.prompt();}
+let reciter="ar.alafasy";
 
 // LOAD
 async function loadQuran(){
@@ -115,7 +122,6 @@ function renderSidebar(list){
  sidebar.innerHTML=list.map(s=>`<div onclick="openSurah(${s.number})">${s.number}. ${s.englishName}</div>`).join("");
 }
 function toggleSidebar(){sidebar.classList.toggle("active");}
-function closeSidebar(){sidebar.classList.remove("active");}
 
 // TAJWEED
 function tajweed(t){
@@ -128,25 +134,20 @@ function tajweed(t){
 }
 
 // OPEN SURAH
-async function openSurah(num){
- closeSidebar();
- currentSurah=Quran.find(s=>s.number==num);
-
- let t=await fetch(`https://api.alquran.cloud/v1/surah/${num}/${translation}`);
- let trans=(await t.json()).data.ayahs;
-
+function openSurah(n){
+ currentSurah=Quran.find(s=>s.number==n);
  let html="";
  currentSurah.ayahs.forEach((a,i)=>{
  html+=`
- <div class="ayah glass" id="a${i}">
+ <div class="ayah" id="a${i}">
   <div>${i+1}</div>
   <div class="arabic">${tajweed(a.text)}</div>
-  <div>${trans[i].text}</div>
 
   <button onclick="play(${i})">▶</button>
+  <button onclick="setLoop(${i})">🔁</button>
+  <button onclick="setContinue(${i})">⏭</button>
  </div>`;
  });
-
  content.innerHTML=html;
 }
 
@@ -154,23 +155,28 @@ async function openSurah(num){
 function play(i){
  currentIndex=i;
  highlight(i);
-
  let n=currentSurah.ayahs[i].number;
  audio.src=`https://cdn.islamic.network/quran/audio/128/${reciter}/${n}.mp3`;
  audio.play();
 }
 
+function setLoop(i){loop=true;cont=false;play(i);}
+function setContinue(i){cont=true;loop=false;play(i);}
+
 audio.onended=()=>{
- currentIndex++;
- if(currentIndex<currentSurah.ayahs.length) play(currentIndex);
+ if(loop) play(currentIndex);
+ else if(cont){
+  currentIndex++;
+  if(currentIndex<currentSurah.ayahs.length) play(currentIndex);
+ }
 };
 
 // HIGHLIGHT
 function highlight(i){
- document.querySelectorAll(".ayah").forEach(e=>e.classList.remove("activeAyah"));
+ document.querySelectorAll(".ayah").forEach(e=>e.classList.remove("active"));
  let el=document.getElementById("a"+i);
  if(el){
-  el.classList.add("activeAyah");
+  el.classList.add("active");
   el.scrollIntoView({behavior:"smooth",block:"center"});
  }
 }
@@ -183,17 +189,7 @@ function search(q){
 
 // SETTINGS
 function openSettings(){settings.style.display="block";}
-function setReciter(r){reciter=r;localStorage.setItem("reciter",r);}
-function changeTrans(t){translation=t;if(currentSurah) openSurah(currentSurah.number);}
-function toggleDark(){document.body.style.background="black";}
-function toggleTajweed(){tajweedOn=!tajweedOn;if(currentSurah) openSurah(currentSurah.number);}
-
-// BOOKMARK
-function bookmark(s,i){localStorage.setItem("bm",JSON.stringify({s,i}));}
-function resume(){
- let b=JSON.parse(localStorage.getItem("bm"));
- if(b){openSurah(b.s);setTimeout(()=>highlight(b.i),500);}
-}
+function setReciter(r){reciter=r;}
 
 // GOTO
 function openGoto(){goto.style.display="block";}
@@ -204,6 +200,9 @@ function goToAyah(){
  setTimeout(()=>highlight(a),800);
 }
 
+// LEGEND
+function showLegend(){legend.style.display="block";}
+
 // NAMAZ
 async function getNamaz(){
  let r=await fetch("https://api.aladhan.com/v1/timingsByCity?city=Delhi&country=India");
@@ -211,29 +210,34 @@ async function getNamaz(){
  alert(`Fajr:${d.Fajr}\nDhuhr:${d.Dhuhr}\nAsr:${d.Asr}\nMaghrib:${d.Maghrib}\nIsha:${d.Isha}`);
 }
 
-// QIBLAH
-function getQiblah(){
- navigator.geolocation.getCurrentPosition(pos=>{
-  let lat=pos.coords.latitude*Math.PI/180;
-  let lon=pos.coords.longitude;
-  let kaabaLat=21.4225*Math.PI/180;
-  let kaabaLon=39.8262;
+// ================= COMPASS =================
+let qiblaAngle=0;
 
-  let dLon=(kaabaLon-lon)*Math.PI/180;
-  let y=Math.sin(dLon);
-  let x=Math.cos(lat)*Math.tan(kaabaLat)-Math.sin(lat)*Math.cos(dLon);
-  let angle=Math.atan2(y,x)*180/Math.PI;
-
-  alert("Qiblah: "+Math.round(angle)+"°");
- });
+function openCompass(){
+ compassPanel.style.display="block";
+ startCompass();
 }
 
-// LEGEND
-function showLegend(){legend.style.display="block";}
+function startCompass(){
+ navigator.geolocation.getCurrentPosition(pos=>{
+  let lat=pos.coords.latitude*Math.PI/180;
+  let lon=pos.coords.longitude*Math.PI/180;
+  let kaabaLat=21.4225*Math.PI/180;
+  let kaabaLon=39.8262*Math.PI/180;
 
-// SW
-if('serviceWorker' in navigator){
- navigator.serviceWorker.register('./service-worker.js');
+  let dLon=kaabaLon-lon;
+  let y=Math.sin(dLon);
+  let x=Math.cos(lat)*Math.tan(kaabaLat)-Math.sin(lat)*Math.cos(dLon);
+  qiblaAngle=(Math.atan2(y,x)*180/Math.PI);
+ });
+
+ window.addEventListener("deviceorientationabsolute", e=>{
+  let heading=e.alpha;
+  if(heading!=null){
+   let rotate=heading-qiblaAngle;
+   needle.style.transform=`rotate(${rotate}deg)`;
+  }
+ });
 }
 
 // INIT
