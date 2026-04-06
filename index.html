@@ -12,7 +12,7 @@ body{margin:0;font-family:sans-serif;background:#0f2027;color:white;}
 .top{display:flex;flex-wrap:wrap;gap:5px;padding:10px;}
 button{padding:8px;border:none;border-radius:8px;background:#00e5ff;color:black;}
 
-#sidebar{position:fixed;left:-260px;width:250px;height:100%;background:#111;overflow:auto;transition:.3s;z-index:2000;}
+#sidebar{position:fixed;left:-260px;width:250px;height:100%;background:#111;overflow:auto;transition:.3s;}
 #sidebar.active{left:0;}
 #sidebar div{padding:12px;border-bottom:1px solid #333;}
 
@@ -36,17 +36,6 @@ button{padding:8px;border:none;border-radius:8px;background:#00e5ff;color:black;
 .qalqala{color:#ffd600;}
 .noon{color:#ff4081;}
 .meem{color:#00e676;}
-
-/* Compass */
-#compass{
- width:200px;height:200px;border:4px solid white;border-radius:50%;
- position:relative;margin:auto;
-}
-#needle{
- width:4px;height:90px;background:red;
- position:absolute;top:10px;left:50%;
- transform-origin:bottom;
-}
 </style>
 </head>
 
@@ -54,12 +43,10 @@ button{padding:8px;border:none;border-radius:8px;background:#00e5ff;color:black;
 
 <div class="top">
  <button onclick="toggleSidebar()">☰</button>
- <button onclick="toggleTajweed()">🧠</button>
- <button onclick="openGoto()">🎯</button>
  <button onclick="openSettings()">⚙</button>
- <button onclick="showLegend()">📖</button>
+ <button onclick="openGoto()">🎯</button>
  <button onclick="getNamaz()">🕌</button>
- <button onclick="openCompass()">🧭</button>
+ <button onclick="installApp()">📱</button>
 </div>
 
 <input placeholder="Search..." oninput="search(this.value)" style="width:95%;margin:10px;padding:10px;">
@@ -69,11 +56,23 @@ button{padding:8px;border:none;border-radius:8px;background:#00e5ff;color:black;
 
 <!-- SETTINGS -->
 <div id="settings" class="panel">
+<h3>Settings</h3>
+
 Reciter:
 <select onchange="setReciter(this.value)">
 <option value="ar.alafasy">Alafasy</option>
 <option value="ar.abdurrahmaansudais">Sudais</option>
 </select>
+
+<br><br>
+
+Translation:
+<select onchange="setTranslation(this.value)">
+<option value="en.asad">Asad</option>
+<option value="en.sahih">Sahih</option>
+<option value="ur.jalandhry">Urdu</option>
+</select>
+
 <br><br>
 <button onclick="settings.style.display='none'">Close</button>
 </div>
@@ -86,29 +85,24 @@ Ayah: <input id="ayahInput"><br><br>
 <button onclick="goto.style.display='none'">Close</button>
 </div>
 
-<!-- LEGEND -->
-<div id="legend" class="panel">
-<p class="madd">Blue → Madd</p>
-<p class="qalqala">Yellow → Qalqalah</p>
-<p class="noon">Pink → Noon</p>
-<p class="meem">Green → Meem</p>
-<button onclick="legend.style.display='none'">Close</button>
-</div>
-
-<!-- COMPASS -->
-<div id="compassPanel" class="panel">
-<h3>Qiblah Compass</h3>
-<div id="compass"><div id="needle"></div></div>
-<button onclick="compassPanel.style.display='none'">Close</button>
-</div>
-
 <script>
 let Quran=[],currentSurah=null;
 let audio=new Audio();
 let currentIndex=0;
 let loop=false,cont=true;
-let tajweedOn=true;
+
+let translation="en.asad";
 let reciter="ar.alafasy";
+let deferredPrompt;
+
+// PWA
+window.addEventListener('beforeinstallprompt', e=>{
+ e.preventDefault();
+ deferredPrompt=e;
+});
+function installApp(){
+ if(deferredPrompt) deferredPrompt.prompt();
+}
 
 // LOAD
 async function loadQuran(){
@@ -123,41 +117,39 @@ function renderSidebar(list){
 }
 function toggleSidebar(){sidebar.classList.toggle("active");}
 
-// TAJWEED
-function tajweed(t){
- if(!tajweedOn) return t;
- return t
- .replace(/[اوي]/g,'<span class="madd">$&</span>')
- .replace(/[قطبجد]/g,'<span class="qalqala">$&</span>')
- .replace(/ن/g,'<span class="noon">ن</span>')
- .replace(/م/g,'<span class="meem">م</span>');
-}
-
-// OPEN SURAH
-function openSurah(n){
+// OPEN SURAH WITH TRANSLATION
+async function openSurah(n){
  currentSurah=Quran.find(s=>s.number==n);
+
+ let t=await fetch(`https://api.alquran.cloud/v1/surah/${n}/${translation}`);
+ let trans=(await t.json()).data.ayahs;
+
  let html="";
  currentSurah.ayahs.forEach((a,i)=>{
  html+=`
  <div class="ayah" id="a${i}">
   <div>${i+1}</div>
-  <div class="arabic">${tajweed(a.text)}</div>
+  <div class="arabic">${a.text}</div>
+  <div>${trans[i].text}</div>
 
   <button onclick="play(${i})">▶</button>
   <button onclick="setLoop(${i})">🔁</button>
   <button onclick="setContinue(${i})">⏭</button>
  </div>`;
  });
+
  content.innerHTML=html;
 }
 
-// AUDIO
+// AUDIO FIX (Sudais working)
 function play(i){
  currentIndex=i;
  highlight(i);
- let n=currentSurah.ayahs[i].number;
- audio.src=`https://cdn.islamic.network/quran/audio/128/${reciter}/${n}.mp3`;
- audio.play();
+
+ let global=currentSurah.ayahs[i].number;
+ audio.src=`https://cdn.islamic.network/quran/audio/128/${reciter}/${global}.mp3`;
+
+ audio.play().catch(()=>alert("Tap again to allow audio"));
 }
 
 function setLoop(i){loop=true;cont=false;play(i);}
@@ -190,6 +182,7 @@ function search(q){
 // SETTINGS
 function openSettings(){settings.style.display="block";}
 function setReciter(r){reciter=r;}
+function setTranslation(t){translation=t;if(currentSurah) openSurah(currentSurah.number);}
 
 // GOTO
 function openGoto(){goto.style.display="block";}
@@ -200,49 +193,27 @@ function goToAyah(){
  setTimeout(()=>highlight(a),800);
 }
 
-// LEGEND
-function showLegend(){legend.style.display="block";}
-
-// NAMAZ
+// NAMAZ (Hanafi)
 async function getNamaz(){
- let r=await fetch("https://api.aladhan.com/v1/timingsByCity?city=Delhi&country=India");
+ let r=await fetch("https://api.aladhan.com/v1/timingsByCity?city=Delhi&country=India&method=1&school=1");
  let d=(await r.json()).data.timings;
- alert(`Fajr:${d.Fajr}\nDhuhr:${d.Dhuhr}\nAsr:${d.Asr}\nMaghrib:${d.Maghrib}\nIsha:${d.Isha}`);
-}
 
-// ================= COMPASS =================
-let qiblaAngle=0;
-
-function openCompass(){
- compassPanel.style.display="block";
- startCompass();
-}
-
-function startCompass(){
- navigator.geolocation.getCurrentPosition(pos=>{
-  let lat=pos.coords.latitude*Math.PI/180;
-  let lon=pos.coords.longitude*Math.PI/180;
-  let kaabaLat=21.4225*Math.PI/180;
-  let kaabaLon=39.8262*Math.PI/180;
-
-  let dLon=kaabaLon-lon;
-  let y=Math.sin(dLon);
-  let x=Math.cos(lat)*Math.tan(kaabaLat)-Math.sin(lat)*Math.cos(dLon);
-  qiblaAngle=(Math.atan2(y,x)*180/Math.PI);
- });
-
- window.addEventListener("deviceorientationabsolute", e=>{
-  let heading=e.alpha;
-  if(heading!=null){
-   let rotate=heading-qiblaAngle;
-   needle.style.transform=`rotate(${rotate}deg)`;
-  }
- });
+ alert(`Hanafi Times:
+Fajr: ${d.Fajr}
+Dhuhr: ${d.Dhuhr}
+Asr: ${d.Asr}
+Maghrib: ${d.Maghrib}
+Isha: ${d.Isha}`);
 }
 
 // INIT
 loadQuran();
 </script>
+
+<!-- CREDIT -->
+<div style="text-align:center;padding:20px;font-size:14px;opacity:0.7;">
+ MADE BY MUBASHIR 😈🔥
+</div>
 
 </body>
 </html>
