@@ -1,4 +1,4 @@
-const CACHE="quran-pro-v5";
+const CACHE="quran-pro-v6";
 
 self.addEventListener("install",e=>{
  e.waitUntil(caches.open(CACHE).then(c=>c.addAll([
