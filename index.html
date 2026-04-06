@@ -3,18 +3,20 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quraan Pro</title>
+
 <link rel="manifest" href="./manifest.json">
-<link rel="icon" href="icon.png">
-<link rel="apple-touch-icon" href="icon.png">
+<link rel="icon" href="./icon.png">
 
 <style>
-body{margin:0;font-family:sans-serif;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;}
-.glass{background:rgba(255,255,255,0.1);backdrop-filter:blur(15px);border-radius:12px;}
+body{margin:0;font-family:sans-serif;background:#0f2027;color:white;}
+.glass{background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:10px;}
 .top{display:flex;flex-wrap:wrap;gap:5px;padding:10px;}
-button{padding:8px;border:none;border-radius:10px;background:rgba(255,255,255,0.2);color:white;}
+button{padding:8px;border:none;border-radius:8px;background:#ffffff22;color:white;}
 
 #sidebar{position:fixed;left:-260px;width:250px;height:100%;background:#111;overflow:auto;transition:.3s;}
 #sidebar.active{left:0;}
+#sidebar div{padding:12px;border-bottom:1px solid #333;cursor:pointer;}
+#sidebar div:hover{background:#00e5ff33;}
 
 .ayah{margin:10px;padding:10px;}
 .activeAyah{border:2px solid cyan;}
@@ -22,14 +24,10 @@ button{padding:8px;border:none;border-radius:10px;background:rgba(255,255,255,0.
 
 /* Tajweed */
 .madd{color:#00e5ff;}
-.ikhfa{color:#ab47bc;}
 .qalqala{color:#ffd600;}
-.noon,.tanween{color:#ff4081;}
+.noon{color:#ff4081;}
 .meem{color:#00e676;}
-.idgham{color:#ff9800;}
-.silent{color:#777;}
 
-/* Panels */
 .panel{position:fixed;top:10%;left:10%;width:80%;background:#111;padding:15px;border-radius:10px;display:none;}
 </style>
 </head>
@@ -39,11 +37,12 @@ button{padding:8px;border:none;border-radius:10px;background:rgba(255,255,255,0.
 <div class="top glass">
  <button onclick="toggleSidebar()">☰</button>
  <button onclick="toggleDark()">🌙</button>
- <button onclick="toggleColor()">🎨</button>
  <button onclick="toggleTajweed()">🧠</button>
- <button onclick="openSettings()">⚙</button>
  <button onclick="openGoto()">🎯</button>
+ <button onclick="openSettings()">⚙</button>
  <button onclick="showLegend()">📖</button>
+ <button onclick="getNamaz()">🕌</button>
+ <button onclick="getQiblah()">🧭</button>
  <button onclick="installApp()">📱</button>
 </div>
 
@@ -54,42 +53,38 @@ button{padding:8px;border:none;border-radius:10px;background:rgba(255,255,255,0.
 
 <!-- SETTINGS -->
 <div id="settings" class="panel">
-<h3>Settings ⚙</h3>
+<h3>Settings</h3>
 Reciter:
 <select onchange="setReciter(this.value)">
 <option value="ar.alafasy">Alafasy</option>
 <option value="ar.abdurrahmaansudais">Sudais</option>
-</select>
-<br><br>
+</select><br><br>
+
 Translation:
 <select onchange="changeTrans(this.value)">
 <option value="en.asad">Asad</option>
 <option value="en.sahih">Sahih</option>
 <option value="ur.jalandhry">Urdu</option>
-</select>
-<br><br>
+</select><br><br>
+
 <button onclick="resume()">Resume ⭐</button>
-<button onclick="closeSettings()">Close</button>
+<button onclick="settings.style.display='none'">Close</button>
 </div>
 
-<!-- GOTO PANEL -->
+<!-- GOTO -->
 <div id="goto" class="panel">
-<h3>Go To 🎯</h3>
 Surah: <input id="suraInput"><br><br>
 Ayah: <input id="ayahInput"><br><br>
 <button onclick="goToAyah()">Go</button>
-<button onclick="closeGoto()">Close</button>
+<button onclick="goto.style.display='none'">Close</button>
 </div>
 
 <!-- LEGEND -->
 <div id="legend" class="panel">
-<h3>Tajweed 🎨</h3>
 <p class="madd">Blue → Madd</p>
-<p class="ikhfa">Purple → Ikhfa</p>
 <p class="qalqala">Yellow → Qalqalah</p>
-<p class="noon">Pink → Noon/Tanween</p>
+<p class="noon">Pink → Noon</p>
 <p class="meem">Green → Meem</p>
-<p class="idgham">Orange → Idgham</p>
 <button onclick="legend.style.display='none'">Close</button>
 </div>
 
@@ -97,13 +92,12 @@ Ayah: <input id="ayahInput"><br><br>
 let Quran=[],currentSurah=null;
 let audio=new Audio();
 let currentIndex=0;
-let loop=false,cont=true;
 let tajweedOn=true;
 let translation="en.asad";
 let reciter=localStorage.getItem("reciter")||"ar.alafasy";
 let deferredPrompt;
 
-// PWA
+// INSTALL
 window.addEventListener('beforeinstallprompt', e=>{
  e.preventDefault(); deferredPrompt=e;
 });
@@ -150,8 +144,6 @@ async function openSurah(num){
   <div>${trans[i].text}</div>
 
   <button onclick="play(${i})">▶</button>
-  <button onclick="loopAyah(${i})">🔁</button>
-  <button onclick="bookmark(${num},${i})">⭐</button>
  </div>`;
  });
 
@@ -162,24 +154,25 @@ async function openSurah(num){
 function play(i){
  currentIndex=i;
  highlight(i);
+
  let n=currentSurah.ayahs[i].number;
  audio.src=`https://cdn.islamic.network/quran/audio/128/${reciter}/${n}.mp3`;
  audio.play();
 }
-function loopAyah(i){loop=true;cont=false;play(i);}
+
 audio.onended=()=>{
- if(loop) play(currentIndex);
- else if(cont){
-  currentIndex++;
-  if(currentIndex<currentSurah.ayahs.length) play(currentIndex);
- }
+ currentIndex++;
+ if(currentIndex<currentSurah.ayahs.length) play(currentIndex);
 };
 
 // HIGHLIGHT
 function highlight(i){
  document.querySelectorAll(".ayah").forEach(e=>e.classList.remove("activeAyah"));
  let el=document.getElementById("a"+i);
- if(el) el.classList.add("activeAyah");
+ if(el){
+  el.classList.add("activeAyah");
+  el.scrollIntoView({behavior:"smooth",block:"center"});
+ }
 }
 
 // SEARCH
@@ -190,11 +183,9 @@ function search(q){
 
 // SETTINGS
 function openSettings(){settings.style.display="block";}
-function closeSettings(){settings.style.display="none";}
 function setReciter(r){reciter=r;localStorage.setItem("reciter",r);}
 function changeTrans(t){translation=t;if(currentSurah) openSurah(currentSurah.number);}
 function toggleDark(){document.body.style.background="black";}
-function toggleColor(){document.body.style.background="linear-gradient(135deg,#ff512f,#dd2476)";}
 function toggleTajweed(){tajweedOn=!tajweedOn;if(currentSurah) openSurah(currentSurah.number);}
 
 // BOOKMARK
@@ -206,12 +197,35 @@ function resume(){
 
 // GOTO
 function openGoto(){goto.style.display="block";}
-function closeGoto(){goto.style.display="none";}
 function goToAyah(){
  let s=parseInt(suraInput.value);
  let a=parseInt(ayahInput.value)-1;
  openSurah(s);
  setTimeout(()=>highlight(a),800);
+}
+
+// NAMAZ
+async function getNamaz(){
+ let r=await fetch("https://api.aladhan.com/v1/timingsByCity?city=Delhi&country=India");
+ let d=(await r.json()).data.timings;
+ alert(`Fajr:${d.Fajr}\nDhuhr:${d.Dhuhr}\nAsr:${d.Asr}\nMaghrib:${d.Maghrib}\nIsha:${d.Isha}`);
+}
+
+// QIBLAH
+function getQiblah(){
+ navigator.geolocation.getCurrentPosition(pos=>{
+  let lat=pos.coords.latitude*Math.PI/180;
+  let lon=pos.coords.longitude;
+  let kaabaLat=21.4225*Math.PI/180;
+  let kaabaLon=39.8262;
+
+  let dLon=(kaabaLon-lon)*Math.PI/180;
+  let y=Math.sin(dLon);
+  let x=Math.cos(lat)*Math.tan(kaabaLat)-Math.sin(lat)*Math.cos(dLon);
+  let angle=Math.atan2(y,x)*180/Math.PI;
+
+  alert("Qiblah: "+Math.round(angle)+"°");
+ });
 }
 
 // LEGEND
