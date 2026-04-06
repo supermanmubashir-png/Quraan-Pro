@@ -1,7 +1,17 @@
-const CACHE="quran-pro";
+const CACHE="quran-pro-v5";
 
 self.addEventListener("install",e=>{
- e.waitUntil(caches.open(CACHE).then(c=>c.addAll(["./","./index.html"])));
+ e.waitUntil(caches.open(CACHE).then(c=>c.addAll([
+  "./","./index.html","./icon.png"
+ ])));
+});
+
+self.addEventListener("activate",e=>{
+ e.waitUntil(caches.keys().then(keys=>{
+  return Promise.all(keys.map(k=>{
+   if(k!==CACHE) return caches.delete(k);
+  }));
+ }));
 });
 
 self.addEventListener("fetch",e=>{
