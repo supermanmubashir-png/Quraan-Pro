@@ -149,6 +149,10 @@ function renderSidebar(list){
 }
 function toggleSidebar(){ sidebar.classList.toggle("active"); }
 
+function showLegend(){
+ openPanel(document.getElementById("legend"));
+}
+
 /* ===== TAJWEED (simple highlighter) ===== */
 function tajweed(text){
  if(!tajweedOn) return text;
