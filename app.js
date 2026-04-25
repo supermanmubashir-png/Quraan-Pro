@@ -155,6 +155,11 @@ audio.onended = async ()=>{
   }
  }
 };
+// your last function...
+
+if ("serviceWorker" in navigator) {
+ navigator.serviceWorker.register("service-worker.js");
+}
 
 // ===== HIGHLIGHT =====
 function highlight(i){
