@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quraan Pro Help</title>
+
+<style>
+body{
+ margin:0;
+ font-family:sans-serif;
+ background:#0f2027;
+ color:white;
+}
+
+.top{
+ padding:15px;
+ background:#111;
+ position:sticky;
+ top:0;
+}
+
+input{
+ width:95%;
+ padding:10px;
+ border-radius:10px;
+ border:none;
+}
+
+.section{
+ background:#ffffff11;
+ margin:10px;
+ padding:15px;
+ border-radius:10px;
+}
+
+h2{color:#00e5ff;}
+button{
+ padding:10px;
+ border:none;
+ border-radius:10px;
+ background:#00e5ff;
+ color:black;
+ margin:5px;
+ cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top">
+<h2>📖 Quraan Pro Help</h2>
+<input placeholder="Search help..." oninput="searchHelp(this.value)">
+</div>
+
+<div id="content">
+
+<div class="section">
+<h3>🧭 Navigation</h3>
+<p>☰ → Open sidebar</p>
+<p>Search → Find surah instantly</p>
+</div>
+
+<div class="section">
+<h3>🎧 Audio</h3>
+<p>▶ Play</p>
+<p>⏸ Pause</p>
+<p>🔁 Loop</p>
+<p>⏭ Continue</p>
+<p>Speed, repeat, delay → Settings ⚙</p>
+</div>
+
+<div class="section">
+<h3>🌍 Translation</h3>
+<p>Change translation in Settings</p>
+<p>Show / hide anytime</p>
+</div>
+
+<div class="section">
+<h3>🧠 Tajweed</h3>
+<p>🧠 toggle colors</p>
+<p>📖 view rules</p>
+</div>
+
+<div class="section">
+<h3>⭐ Bookmark</h3>
+<p>Tap ⭐ to save ayah</p>
+<p>Resume from Settings</p>
+</div>
+
+<div class="section">
+<h3>🎯 Go To</h3>
+<p>Enter Surah + Ayah number</p>
+</div>
+
+<div class="section">
+<h3>🕌 Prayer Times</h3>
+<p>Shows Hanafi timings</p>
+</div>
+
+<div class="section">
+<h3>🧭 Qiblah</h3>
+<p>Allow location + motion</p>
+</div>
+
+<div class="section">
+<h3>📱 Install App</h3>
+<p>Tap install to add to phone</p>
+</div>
+
+<div class="section">
+<h3>⚙ Settings</h3>
+<p>Reciter (incl. :contentReference[oaicite:0]{index=0})</p>
+<p>Speed, delay, repeat</p>
+<p>Font size</p>
+</div>
+
+<div class="section">
+<h3>💡 Tips</h3>
+<p>Use HTTPS for full features</p>
+<p>Tap audio twice if blocked</p>
+<p>Allow permissions for compass</p>
+</div>
+
+</div>
+
+<br>
+<button onclick="window.scrollTo(0,0)">⬆ Top</button>
+
+<script>
+function searchHelp(q){
+ q=q.toLowerCase();
+ document.querySelectorAll(".section").forEach(sec=>{
+  sec.style.display = sec.innerText.toLowerCase().includes(q) ? "block" : "none";
+ });
+}
+</script>
+
+</body>
+</html>
