@@ -6,42 +6,51 @@
 
 <style>
 body{
- margin:0;
- font-family:sans-serif;
- background:#0f2027;
- color:white;
+margin:0;
+font-family:sans-serif;
+background:#0f2027;
+color:white;
 }
 
-.top{
- padding:15px;
- background:#111;
- position:sticky;
- top:0;
-}
-
-input{
- width:95%;
- padding:10px;
- border-radius:10px;
- border:none;
+h1,h2{
+color:#00e5ff;
 }
 
 .section{
- background:#ffffff11;
- margin:10px;
- padding:15px;
- border-radius:10px;
+margin:15px;
+padding:15px;
+background:#ffffff11;
+border-radius:12px;
 }
 
-h2{color:#00e5ff;}
+code{
+background:#222;
+padding:2px 5px;
+border-radius:5px;
+}
+
+.top{
+position:sticky;
+top:0;
+background:#111;
+padding:10px;
+}
+
+input{
+width:95%;
+padding:10px;
+margin:10px;
+border-radius:8px;
+border:none;
+}
+
 button{
- padding:10px;
- border:none;
- border-radius:10px;
- background:#00e5ff;
- color:black;
- margin:5px;
- cursor:pointer;
+padding:10px;
+margin:5px;
+border:none;
+border-radius:8px;
+background:#00e5ff;
+color:black;
 }
 </style>
 </head>
@@ -49,90 +58,121 @@ button{
 <body>
 
 <div class="top">
-<h2>📖 Quraan Pro Help</h2>
+<h2>📖 Quraan Pro Help Center</h2>
 <input placeholder="Search help..." oninput="searchHelp(this.value)">
 </div>
 
 <div id="content">
 
 <div class="section">
-<h3>🧭 Navigation</h3>
-<p>☰ → Open sidebar</p>
-<p>Search → Find surah instantly</p>
+<h2>📌 Overview</h2>
+<p>This app helps you read, listen, and understand the Holy Qur’an with multiple tools.</p>
 </div>
 
 <div class="section">
-<h3>🎧 Audio</h3>
-<p>▶ Play</p>
-<p>⏸ Pause</p>
-<p>🔁 Loop</p>
-<p>⏭ Continue</p>
-<p>Speed, repeat, delay → Settings ⚙</p>
+<h2>☰ Navigation</h2>
+<ul>
+<li>☰ opens Surah list</li>
+<li>Tap any Surah to open it</li>
+<li>Search bar filters Surahs instantly</li>
+</ul>
 </div>
 
 <div class="section">
-<h3>🌍 Translation</h3>
-<p>Change translation in Settings</p>
-<p>Show / hide anytime</p>
+<h2>🎧 Audio System</h2>
+<ul>
+<li>▶ Play ayah</li>
+<li>🔁 Loop ayah</li>
+<li>⏭ Continue next ayah</li>
+<li>Speed control available in settings</li>
+</ul>
 </div>
 
 <div class="section">
-<h3>🧠 Tajweed</h3>
-<p>🧠 toggle colors</p>
-<p>📖 view rules</p>
+<h2>⭐ Bookmark System</h2>
+<ul>
+<li>Tap ⭐ to save ayah</li>
+<li>All saved ayahs appear in ⭐ panel</li>
+<li>Tap to jump directly</li>
+</ul>
 </div>
 
 <div class="section">
-<h3>⭐ Bookmark</h3>
-<p>Tap ⭐ to save ayah</p>
-<p>Resume from Settings</p>
+<h2>📘 Tafseer</h2>
+<ul>
+<li>Tap 📘 to load explanation</li>
+<li>Shows meaning of ayah</li>
+<li>Can be opened/closed anytime</li>
+</ul>
 </div>
 
 <div class="section">
-<h3>🎯 Go To</h3>
-<p>Enter Surah + Ayah number</p>
+<h2>🎯 Go To Feature</h2>
+<ul>
+<li>Enter Surah number</li>
+<li>Enter Ayah number</li>
+<li>Jump directly</li>
+</ul>
 </div>
 
 <div class="section">
-<h3>🕌 Prayer Times</h3>
-<p>Shows Hanafi timings</p>
+<h2>⚙ Settings</h2>
+<ul>
+<li>Change Reciter (e.g. :contentReference[oaicite:0]{index=0})</li>
+<li>Change Translation</li>
+<li>Adjust speed, repeat, delay</li>
+</ul>
 </div>
 
 <div class="section">
-<h3>🧭 Qiblah</h3>
-<p>Allow location + motion</p>
+<h2>🕌 Prayer Times</h2>
+<p>Shows Hanafi-style prayer timings using API.</p>
 </div>
 
 <div class="section">
-<h3>📱 Install App</h3>
-<p>Tap install to add to phone</p>
+<h2>🧭 Qiblah Compass</h2>
+<ul>
+<li>Uses device sensor</li>
+<li>Points direction to Makkah</li>
+<li>Needs permission</li>
+</ul>
 </div>
 
 <div class="section">
-<h3>⚙ Settings</h3>
-<p>Reciter (incl. :contentReference[oaicite:0]{index=0})</p>
-<p>Speed, delay, repeat</p>
-<p>Font size</p>
+<h2>📱 Installation</h2>
+<ul>
+<li>Tap install button</li>
+<li>Adds app to home screen</li>
+<li>Works like native app</li>
+</ul>
 </div>
 
 <div class="section">
-<h3>💡 Tips</h3>
-<p>Use HTTPS for full features</p>
-<p>Tap audio twice if blocked</p>
-<p>Allow permissions for compass</p>
+<h2>⚠ Tips</h2>
+<ul>
+<li>Use HTTPS for full features</li>
+<li>Allow permissions for compass</li>
+<li>Refresh if audio not working</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>🔧 Troubleshooting</h2>
+<ul>
+<li>Install not showing → refresh page</li>
+<li>Audio not playing → tap again</li>
+<li>Blank screen → clear cache</li>
+</ul>
 </div>
 
 </div>
-
-<br>
-<button onclick="window.scrollTo(0,0)">⬆ Top</button>
 
 <script>
 function searchHelp(q){
- q=q.toLowerCase();
- document.querySelectorAll(".section").forEach(sec=>{
-  sec.style.display = sec.innerText.toLowerCase().includes(q) ? "block" : "none";
- });
+q=q.toLowerCase();
+document.querySelectorAll(".section").forEach(s=>{
+s.style.display=s.innerText.toLowerCase().includes(q)?"block":"none";
+});
 }
 </script>
 
