@@ -10,10 +10,23 @@ margin:0;
 font-family:sans-serif;
 background:#0f2027;
 color:white;
+line-height:1.6;
 }
 
-h1,h2{
-color:#00e5ff;
+.top{
+position:sticky;
+top:0;
+background:#111;
+padding:10px;
+z-index:10;
+}
+
+input{
+width:95%;
+padding:10px;
+border-radius:8px;
+border:none;
+margin:10px;
 }
 
 .section{
@@ -23,34 +36,21 @@ background:#ffffff11;
 border-radius:12px;
 }
 
-code{
-background:#222;
-padding:2px 5px;
-border-radius:5px;
+h1,h2{
+color:#00e5ff;
 }
 
-.top{
-position:sticky;
-top:0;
-background:#111;
-padding:10px;
-}
-
-input{
-width:95%;
-padding:10px;
-margin:10px;
-border-radius:8px;
-border:none;
+ul{
+padding-left:20px;
 }
 
 button{
 padding:10px;
-margin:5px;
 border:none;
 border-radius:8px;
 background:#00e5ff;
 color:black;
+margin:5px;
 }
 </style>
 </head>
@@ -58,51 +58,66 @@ color:black;
 <body>
 
 <div class="top">
-<h2>📖 Quraan Pro Help Center</h2>
-<input placeholder="Search help..." oninput="searchHelp(this.value)">
+<h1>📖 Quraan Pro Help Center</h1>
+<input placeholder="Search anything..." oninput="searchHelp(this.value)">
 </div>
 
 <div id="content">
 
 <div class="section">
-<h2>📌 Overview</h2>
-<p>This app helps you read, listen, and understand the Holy Qur’an with multiple tools.</p>
+<h2>📌 Introduction</h2>
+<p>Quraan Pro is a modern Qur’an app designed for reading, listening, and understanding.</p>
+<p>This guide explains every feature in detail.</p>
 </div>
 
 <div class="section">
-<h2>☰ Navigation</h2>
+<h2>☰ Sidebar Navigation</h2>
 <ul>
-<li>☰ opens Surah list</li>
-<li>Tap any Surah to open it</li>
-<li>Search bar filters Surahs instantly</li>
+<li>Tap ☰ to open all Surahs</li>
+<li>Tap any Surah to load it</li>
+<li>Sidebar auto closes after selection</li>
+<li>Scroll to browse all 114 Surahs</li>
 </ul>
 </div>
 
 <div class="section">
-<h2>🎧 Audio System</h2>
+<h2>🔍 Search System</h2>
+<ul>
+<li>Type Surah name (e.g. Baqara)</li>
+<li>Results filter instantly</li>
+<li>Works in real-time</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>🎧 Audio Controls</h2>
 <ul>
 <li>▶ Play ayah</li>
-<li>🔁 Loop ayah</li>
-<li>⏭ Continue next ayah</li>
-<li>Speed control available in settings</li>
+<li>🔁 Loop ayah continuously</li>
+<li>⏭ Continue to next ayah</li>
+<li>Speed control in settings</li>
+<li>Repeat count available</li>
+<li>Delay between ayahs supported</li>
 </ul>
 </div>
 
 <div class="section">
 <h2>⭐ Bookmark System</h2>
 <ul>
-<li>Tap ⭐ to save ayah</li>
-<li>All saved ayahs appear in ⭐ panel</li>
-<li>Tap to jump directly</li>
+<li>Tap ⭐ to save any ayah</li>
+<li>Tap ⭐ again to remove</li>
+<li>All saved ayahs appear in star panel</li>
+<li>Tap any saved ayah to jump</li>
 </ul>
 </div>
 
 <div class="section">
-<h2>📘 Tafseer</h2>
+<h2>📘 Tafseer Feature</h2>
 <ul>
-<li>Tap 📘 to load explanation</li>
-<li>Shows meaning of ayah</li>
-<li>Can be opened/closed anytime</li>
+<li>Tap 📘 under any ayah</li>
+<li>Loads explanation of ayah</li>
+<li>Tap again to close</li>
+<li>Loads only when needed (fast)</li>
 </ul>
 </div>
 
@@ -111,61 +126,135 @@ color:black;
 <ul>
 <li>Enter Surah number</li>
 <li>Enter Ayah number</li>
-<li>Jump directly</li>
+<li>Tap Go to jump directly</li>
 </ul>
 </div>
 
 <div class="section">
-<h2>⚙ Settings</h2>
+<h2>⚙ Settings Panel</h2>
 <ul>
-<li>Change Reciter (e.g. :contentReference[oaicite:0]{index=0})</li>
+<li>Change Reciter (e.g. Abdul Rahman Al-Sudais)</li>
 <li>Change Translation</li>
 <li>Adjust speed, repeat, delay</li>
+<li>Resume last ayah</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>🌍 Translation System</h2>
+<ul>
+<li>Supports multiple languages</li>
+<li>Switch from settings</li>
+<li>Displayed below Arabic text</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>🧠 Tajweed Mode</h2>
+<ul>
+<li>Toggle using 🧠 button</li>
+<li>Highlights rules (basic)</li>
+<li>Improves recitation accuracy</li>
 </ul>
 </div>
 
 <div class="section">
 <h2>🕌 Prayer Times</h2>
-<p>Shows Hanafi-style prayer timings using API.</p>
+<ul>
+<li>Uses online API</li>
+<li>Shows daily timings</li>
+<li>Based on Hanafi method</li>
+</ul>
 </div>
 
 <div class="section">
 <h2>🧭 Qiblah Compass</h2>
 <ul>
-<li>Uses device sensor</li>
-<li>Points direction to Makkah</li>
-<li>Needs permission</li>
+<li>Uses device sensors</li>
+<li>Points toward Makkah</li>
+<li>Requires permission</li>
 </ul>
 </div>
 
 <div class="section">
-<h2>📱 Installation</h2>
+<h2>📱 Install App</h2>
 <ul>
-<li>Tap install button</li>
-<li>Adds app to home screen</li>
-<li>Works like native app</li>
+<li>Tap 📱 button</li>
+<li>Add to home screen</li>
+<li>Works like real app</li>
 </ul>
 </div>
 
 <div class="section">
-<h2>⚠ Tips</h2>
+<h2>💾 Offline Mode</h2>
 <ul>
-<li>Use HTTPS for full features</li>
-<li>Allow permissions for compass</li>
-<li>Refresh if audio not working</li>
+<li>Basic offline support via cache</li>
+<li>Works after first load</li>
+<li>Audio requires internet</li>
 </ul>
 </div>
 
 <div class="section">
-<h2>🔧 Troubleshooting</h2>
+<h2>⚡ Performance Tips</h2>
 <ul>
-<li>Install not showing → refresh page</li>
+<li>Use stable internet</li>
+<li>Avoid opening too many tabs</li>
+<li>Reload if lag occurs</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>🛠 Troubleshooting</h2>
+<ul>
 <li>Audio not playing → tap again</li>
+<li>Install not working → refresh page</li>
 <li>Blank screen → clear cache</li>
 </ul>
 </div>
 
+<div class="section">
+<h2>❓ FAQ</h2>
+<p><b>Q:</b> Why audio stops?<br> A: Network issue or browser restriction.</p>
+<p><b>Q:</b> Why install not showing?<br> A: Already installed or criteria not met.</p>
+<p><b>Q:</b> Why compass not accurate?<br> A: Sensor permission needed.</p>
 </div>
+
+<div class="section">
+<h2>📚 Learning Tips</h2>
+<ul>
+<li>Use loop for memorization</li>
+<li>Use tafseer for understanding</li>
+<li>Bookmark important ayahs</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>🔒 Permissions</h2>
+<ul>
+<li>Location → prayer + compass</li>
+<li>Motion → compass direction</li>
+<li>Audio → recitation</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>📌 Advanced Usage</h2>
+<ul>
+<li>Combine loop + repeat for memorization</li>
+<li>Use resume for daily reading</li>
+<li>Use go-to for quick navigation</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>🏁 Conclusion</h2>
+<p>This app combines reading, listening, and learning tools into one platform.</p>
+<p>Use it daily for best experience.</p>
+</div>
+
+</div>
+
+<button onclick="window.scrollTo(0,0)">⬆ Back to Top</button>
 
 <script>
 function searchHelp(q){
