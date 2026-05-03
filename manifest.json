@@ -1,11 +1,11 @@
 {
   "name": "Quraan Pro",
   "short_name": "Quraan",
-  "version": "6.5.1",
+   "version": "6.5.1",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#0f2027",
   "theme_color": "#00e5ff",
+  "background_color": "#0f2027",
   "icons": [
     {
       "src": "icon.png",
