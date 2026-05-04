@@ -315,3 +315,4 @@ function startCompass(){
 function toggleTajweed(){
  tajweedOn = !tajweedOn;
  if(currentSurah) openSurah(currentSurah.number);
+}
