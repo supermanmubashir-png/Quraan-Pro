@@ -216,6 +216,14 @@ document.getElementById("repeat").oninput = e=>{
 document.getElementById("fontSize").oninput = e=>{
  document.documentElement.style.setProperty("--arabicSize", e.target.value + "px");
 };
+function applyTheme(theme){
+ document.body.className = theme;
+ localStorage.setItem("theme", theme);
+}
+
+document.getElementById("themeSelect").addEventListener("change", e=>{
+ applyTheme(e.target.value);
+});
 
 // ===== PANELS =====
 function openPanel(p){
