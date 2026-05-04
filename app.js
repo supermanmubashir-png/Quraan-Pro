@@ -217,13 +217,33 @@ document.getElementById("fontSize").oninput = e=>{
  document.documentElement.style.setProperty("--arabicSize", e.target.value + "px");
 };
 function applyTheme(theme){
- document.body.className = theme;
+ document.body.classList.remove(
+  "theme-dark",
+  "theme-light",
+  "theme-blue",
+  "theme-green",
+  "theme-purple",
+  "theme-gold"
+ );
+
+ document.body.classList.add(theme);
  localStorage.setItem("theme", theme);
 }
 
+// change theme
 document.getElementById("themeSelect").addEventListener("change", e=>{
  applyTheme(e.target.value);
 });
+
+// load saved theme
+let savedTheme = localStorage.getItem("theme") || "theme-dark";
+applyTheme(savedTheme);
+
+// set dropdown value
+window.onload = ()=>{
+ document.getElementById("themeSelect").value = savedTheme;
+};
+
 
 // ===== PANELS =====
 function openPanel(p){
@@ -295,13 +315,3 @@ function startCompass(){
 function toggleTajweed(){
  tajweedOn = !tajweedOn;
  if(currentSurah) openSurah(currentSurah.number);
-}
-let savedTheme = localStorage.getItem("theme") || "theme-dark";
-document.body.className = savedTheme;
-
-window.onload = ()=>{
- document.getElementById("themeSelect").value = savedTheme;
-};
-function openHelp(){
- window.open("help.html", "_blank");
-}
