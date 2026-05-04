@@ -296,6 +296,12 @@ function toggleTajweed(){
  tajweedOn = !tajweedOn;
  if(currentSurah) openSurah(currentSurah.number);
 }
+let savedTheme = localStorage.getItem("theme") || "theme-dark";
+document.body.className = savedTheme;
+
+window.onload = ()=>{
+ document.getElementById("themeSelect").value = savedTheme;
+};
 function openHelp(){
  window.open("help.html", "_blank");
 }
