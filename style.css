@@ -30,19 +30,96 @@ body.theme-purple{
  color:white;
 }
 
+/* ===== KAABA THEME ===== */
 body.theme-gold{
- background: linear-gradient(135deg, #C9A227, #FFD700, #FFECB3);
- color:#1a1a1a; /* dark text for contrast */
-}
-body.theme-gold button{
- background:#1a1a1a;
+ background: linear-gradient(135deg, #000000, #111111, #1a1a1a);
  color:#FFD700;
 }
-body.theme-gold .ayah{
- background: rgba(0,0,0,0.1);
+
+/* ===== TOP BAR ===== */
+body.theme-gold .top{
+ background: rgba(0,0,0,0.85);
  backdrop-filter: blur(10px);
+ border-bottom:2px solid #FFD70033;
 }
 
+/* ===== BUTTONS ===== */
+body.theme-gold button{
+ background:#FFD700;
+ color:#000;
+ font-weight:bold;
+ box-shadow:0 0 10px #FFD70055;
+}
+
+body.theme-gold button:hover{
+ background:#ffea00;
+ transform:scale(1.05);
+}
+
+/* ===== SEARCH ===== */
+body.theme-gold input{
+ background:#111;
+ color:#FFD700;
+ border:1px solid #FFD70055;
+}
+
+/* ===== SIDEBAR ===== */
+body.theme-gold #sidebar{
+ background: linear-gradient(180deg, #000000, #1a1a1a);
+ color:#FFD700;
+}
+
+body.theme-gold #sidebar div{
+ border-bottom:1px solid #FFD70022;
+}
+
+body.theme-gold #sidebar div:hover{
+ background:#FFD70022;
+}
+
+/* ===== AYAH CARD ===== */
+body.theme-gold .ayah{
+ background: rgba(255,215,0,0.05);
+ border:1px solid #FFD70022;
+ backdrop-filter: blur(12px);
+}
+
+body.theme-gold .ayah:hover{
+ box-shadow:0 0 15px #FFD70033;
+}
+
+/* ===== ACTIVE AYAH ===== */
+body.theme-gold .active{
+ border:2px solid #FFD700;
+ box-shadow:0 0 20px #FFD70055;
+}
+
+/* ===== STAR ===== */
+body.theme-gold .star.active{
+ color:#FFD700;
+ text-shadow:0 0 10px #FFD700;
+}
+
+/* ===== PANELS ===== */
+body.theme-gold .panel{
+ background: rgba(0,0,0,0.95);
+ color:#FFD700;
+ border:1px solid #FFD70033;
+}
+
+/* ===== COMPASS ===== */
+body.theme-gold #compass{
+ border:3px solid #FFD700;
+}
+
+body.theme-gold #needle{
+ background:#FFD700;
+}
+
+/* ===== FOOTER ===== */
+body.theme-gold .footer{
+ color:#FFD70088;
+}
 /* ===== BASE ===== */
 body{
  margin:0;
