@@ -326,3 +326,56 @@ body.theme-light #sidebar{
  background:#ffffff;
  color:black;
 }
+
+#favoritesPanel{
+ width:90%;
+ left:5%;
+ max-height:80%;
+ overflow:auto;
+}
+
+#favOverlay{
+ display:none;
+ position:fixed;
+ top:0; left:0;
+ width:100%;
+ height:100%;
+ background:#0008;
+ z-index:99;
+}
+
+#favoritesList{
+ margin-top:10px;
+}
+
+/* CARD STYLE */
+.favCard{
+ background:rgba(255,255,255,0.08);
+ padding:12px;
+ margin-bottom:10px;
+ border-radius:12px;
+ cursor:pointer;
+ backdrop-filter:blur(10px);
+ transition:0.2s;
+}
+
+.favCard:hover{
+ transform:scale(1.02);
+ background:rgba(255,255,255,0.15);
+}
+
+.favTitle{
+ font-weight:bold;
+ color:#00e5ff;
+}
+
+.favAyah{
+ margin-top:5px;
+ opacity:0.9;
+}
+
+.removeFav{
+ float:right;
+ color:red;
+ font-size:14px;
+}
