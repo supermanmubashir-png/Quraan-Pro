@@ -84,11 +84,13 @@ let active = favorites.includes(key) ? "active" : "";
 
   html += `
   <div class="ayah" id="a${i}">
-    <button class="star ${active}"
-     onclick="toggleStar(${surah.number}, ${ayah.number})">
-     ⭐
-   </button>
-
+    <button onclick="toggleStar(
+ ${surah.number},
+ ${ayah.number},
+ '${surah.englishName}',
+ `${ayah.text.replace(/`/g,"")}`
+)">
+⭐</button>
    <div>${i+1}</div>
    <div class="arabic">${tajweed(a.text)}</div>
 
