@@ -382,3 +382,21 @@ body.theme-light #sidebar{
 .star.active{
  color: gold;
 }
+.favTitle{
+ font-weight:bold;
+ color:gold;
+ display:flex;
+ justify-content:space-between;
+}
+
+.favAyah{
+ margin-top:6px;
+ font-size:18px;
+ direction:rtl;
+ line-height:1.8;
+}
+
+.removeFav{
+ color:red;
+ cursor:pointer;
+}
