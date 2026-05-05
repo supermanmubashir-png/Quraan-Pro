@@ -30,9 +30,7 @@
  <button onclick="getNamaz()">🕌</button>
  <button onclick="openCompass()">🧭</button>
  <button onclick="installApp()">📱</button>
-<a href="help.html" target="_blank">
-  <button>❓ HELP</button>
-</a>
+<button onclick="openHelp()">❓ HELP</button>
  <button onclick="window.open('updates.html')">🆕 Updates</button>
 </div>
 
@@ -48,85 +46,68 @@
 </div>
 
 <!-- SETTINGS PANEL -->
-<div id="overlay" onclick="closeSettings()"></div>
-
-<div id="settingsPanel" class="panel">
-
-<h2>⚙ Settings</h2>
-
-<!-- TABS -->
-<div class="tabs">
-<button onclick="openTab('audioTab')">🎧</button>
-<button onclick="openTab('readingTab')">📖</button>
-<button onclick="openTab('uiTab')">🎨</button>
-<button onclick="openTab('advancedTab')">⚙</button>
-</div>
+<div id="settings" class="panel">
+<h3>Settings</h3>
 
 <!-- AUDIO -->
-<div id="audioTab" class="tab">
-<h3>Audio</h3>
-
-<label>Speed</label>
-<select id="speedSelect">
-<option value="1">1x</option>
-<option value="1.5">1.5x</option>
-<option value="2">2x</option>
+<h4>Audio</h4>
+<label>Reciter</label>
+<select id="reciterSelect">
+ <option value="ar.alafasy">Alafasy</option>
+ <option value="ar.abdurrahmaansudais">Sudais</option>
 </select>
 
-<label>Auto Next</label>
-<input type="checkbox" id="autoNext">
+<label>Speed</label>
+<input type="range" min="0.5" max="2" step="0.25" id="speed">
 
-<label>Loop Count</label>
-<input type="number" id="loopCount" min="1" max="10">
+<label>Pause Between Ayahs</label>
+<input type="range" min="0" max="5" id="pause">
 
-</div>
+<label>Repeat Count</label>
+<input type="number" min="1" max="10" id="repeat">
 
-<!-- READING -->
-<div id="readingTab" class="tab">
-<h3>Reading</h3>
-
-<label>Arabic Size</label>
-<input type="range" id="arabicSize" min="20" max="40">
+<!-- TRANSLATION -->
+<h4>Translation</h4>
+<select id="translationSelect">
+ <option value="en.asad">Asad</option>
+ <option value="en.sahih">Sahih</option>
+ <option value="ur.jalandhry">Urdu</option>
+</select>
 
 <label>Show Translation</label>
-<input type="checkbox" id="showTrans">
+<input type="checkbox" id="toggleTranslation" checked>
 
-</div>
+<!-- TAJWEED -->
+<h4>Tajweed</h4>
+<label>Enable</label>
+<input type="checkbox" id="tajweedToggle" checked>
+
+<label>Intensity</label>
+<input type="range" min="1" max="5" id="tajweedIntensity">
 
 <!-- UI -->
-<div id="uiTab" class="tab">
-<h3>UI</h3>
-
+<h4>UI</h4>
 <label>Theme</label>
+Theme:
 <select id="themeSelect">
 <option value="theme-dark">Dark</option>
 <option value="theme-light">Light</option>
 <option value="theme-blue">Blue</option>
 <option value="theme-green">Green</option>
 <option value="theme-purple">Purple</option>
-<option value="theme-gold">Kaaba</option>
+<option value="theme-gold">Gold</option>
 </select>
 
+<label>Arabic Font Size</label>
+<input type="range" min="18" max="40" id="fontSize">
+
+<!-- BOOKMARK -->
+<h4>Progress</h4>
+<button onclick="resume()">Resume Last</button>
+
+<button onclick="closePanels()">Close</button>
 </div>
 
-<!-- ADVANCED -->
-<div id="advancedTab" class="tab">
-<h3>Advanced</h3>
-
-<label>Tajweed</label>
-<input type="checkbox" id="tajweedToggle">
-
-<label>Auto Save</label>
-<input type="checkbox" id="autoSave">
-
-<button onclick="resetSettings()">Reset All</button>
-
-</div>
-
-<br>
-<button onclick="closeSettings()">Close</button>
-
-</div>
 <!-- GOTO PANEL -->
 <div id="goto" class="panel">
 <h3>Go To</h3>
