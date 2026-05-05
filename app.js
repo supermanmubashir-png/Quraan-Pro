@@ -185,6 +185,16 @@ function resume(){
  }
 }
 
+// ===== SETTINGS PANEL OPEN/CLOSE =====
+function openSettings(){
+ document.getElementById("settingsPanel").style.display = "block";
+ document.getElementById("overlay").style.display = "block";
+}
+
+function closeSettings(){
+ document.getElementById("settingsPanel").style.display = "none";
+ document.getElementById("overlay").style.display = "none";
+}
 // ===== SETTINGS PRO MAX (FULL + SAFE) =====
 
 document.addEventListener("DOMContentLoaded", ()=>{
