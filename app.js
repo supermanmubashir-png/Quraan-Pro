@@ -333,21 +333,29 @@ if ('serviceWorker' in navigator) {
 
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-// ⭐ TOGGLE STAR
-function toggleStar(surah, ayah){
- let key = surah + ":" + ayah;
+// ⭐ TOGGLE STAR (ULTRA)
+function toggleStar(surahNum, ayahNum, surahName, ayahText){
 
- if(favorites.includes(key)){
-  favorites = favorites.filter(f => f !== key);
+ let key = surahNum + ":" + ayahNum;
+
+ let existing = favorites.find(f => f.key === key);
+
+ if(existing){
+  favorites = favorites.filter(f => f.key !== key);
  } else {
-  favorites.push(key);
+  favorites.push({
+   key: key,
+   surah: surahNum,
+   ayah: ayahNum,
+   name: surahName,
+   text: ayahText
+  });
  }
 
  localStorage.setItem("favorites", JSON.stringify(favorites));
 
  if(currentSurah) openSurah(currentSurah.number);
 }
-
 // ⭐ OPEN PANEL
 function openFavorites(){
  document.getElementById("favoritesPanel").style.display = "block";
