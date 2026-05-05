@@ -79,9 +79,15 @@ async function openSurah(n){
  let html = "";
 
  currentSurah.ayahs.forEach((a,i)=>{
+  let key = surah.number + ":" + ayah.number;
+let active = favorites.includes(key) ? "active" : "";
+
   html += `
   <div class="ayah" id="a${i}">
-   <div class="star" onclick="toggleStar(this,${n},${i})">⭐</div>
+    <button class="star ${active}"
+     onclick="toggleStar(${surah.number}, ${ayah.number})">
+     ⭐
+   </button>
 
    <div>${i+1}</div>
    <div class="arabic">${tajweed(a.text)}</div>
