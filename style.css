@@ -379,3 +379,6 @@ body.theme-light #sidebar{
  color:red;
  font-size:14px;
 }
+.star.active{
+ color: gold;
+}
