@@ -322,3 +322,83 @@ if ('serviceWorker' in navigator) {
   regs.forEach(reg => reg.unregister());
  });
 }
+
+// ===== FAVORITES SYSTEM =====
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+// ⭐ TOGGLE STAR
+function toggleStar(surah, ayah){
+ let key = surah + ":" + ayah;
+
+ if(favorites.includes(key)){
+  favorites = favorites.filter(f => f !== key);
+ } else {
+  favorites.push(key);
+ }
+
+ localStorage.setItem("favorites", JSON.stringify(favorites));
+
+ if(currentSurah) openSurah(currentSurah.number);
+}
+
+// ⭐ OPEN PANEL
+function openFavorites(){
+ document.getElementById("favoritesPanel").style.display = "block";
+ document.getElementById("favOverlay").style.display = "block";
+ loadFavorites();
+}
+
+// ⭐ CLOSE PANEL
+function closeFavorites(){
+ document.getElementById("favoritesPanel").style.display = "none";
+ document.getElementById("favOverlay").style.display = "none";
+}
+
+// ⭐ LOAD FAVORITES UI
+function loadFavorites(){
+ let container = document.getElementById("favoritesList");
+ if(!container) return;
+
+ container.innerHTML = "";
+
+ if(favorites.length === 0){
+  container.innerHTML = "<p>No favorites yet</p>";
+  return;
+ }
+
+ favorites.forEach(f=>{
+  let [s,a] = f.split(":");
+
+  let card = document.createElement("div");
+  card.className = "favCard";
+
+  card.innerHTML = `
+   <div class="favTitle">Surah ${s} - Ayah ${a}</div>
+   <div class="favAyah">Tap to open</div>
+   <span class="removeFav" onclick="removeFav('${f}', event)">❌</span>
+  `;
+
+  card.onclick = ()=>{
+   closeFavorites();
+   openSurah(parseInt(s));
+
+   setTimeout(()=>{
+    let el = document.getElementById("ayah-"+a);
+    if(el) el.scrollIntoView({behavior:"smooth"});
+   },300);
+  };
+
+  container.appendChild(card);
+ });
+}
+
+// ❌ REMOVE
+function removeFav(key, e){
+ e.stopPropagation();
+
+ favorites = favorites.filter(f=>f!==key);
+ localStorage.setItem("favorites", JSON.stringify(favorites));
+
+ loadFavorites();
+}
