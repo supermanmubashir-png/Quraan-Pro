@@ -316,3 +316,142 @@ function toggleTajweed(){
  tajweedOn = !tajweedOn;
  if(currentSurah) openSurah(currentSurah.number);
 }
+
+// ===== SETTINGS PRO MAX =====
+
+// TAB SYSTEM
+function openTab(id){
+ document.querySelectorAll(".tab").forEach(t=>t.style.display="none");
+ let tab = document.getElementById(id);
+ if(tab) tab.style.display = "block";
+}
+
+// DEFAULT TAB OPEN
+setTimeout(()=>{
+ if(document.getElementById("audioTab")){
+  openTab("audioTab");
+ }
+},200);
+
+
+// ===== SAVE + LOAD SETTINGS =====
+
+// LOAD
+window.addEventListener("load", ()=>{
+
+ // speed
+ let sp = localStorage.getItem("speed") || 1;
+ let speedEl = document.getElementById("speedSelect");
+ if(speedEl) speedEl.value = sp;
+
+ // auto next
+ let autoNext = localStorage.getItem("autoNext") === "true";
+ let autoNextEl = document.getElementById("autoNext");
+ if(autoNextEl) autoNextEl.checked = autoNext;
+
+ // loop count
+ let loopVal = localStorage.getItem("loopCount") || 1;
+ let loopEl = document.getElementById("loopCount");
+ if(loopEl) loopEl.value = loopVal;
+ repeatCount = loopVal;
+
+ // font size
+ let size = localStorage.getItem("arabicSize") || 26;
+ document.documentElement.style.setProperty("--arabicSize", size+"px");
+ let sizeEl = document.getElementById("arabicSize");
+ if(sizeEl) sizeEl.value = size;
+
+ // translation
+ let trans = localStorage.getItem("showTrans") !== "false";
+ let transEl = document.getElementById("showTrans");
+ if(transEl) transEl.checked = trans;
+ showTranslation = trans;
+
+ // tajweed
+ let tj = localStorage.getItem("tajweed") !== "false";
+ let tjEl = document.getElementById("tajweedToggle");
+ if(tjEl) tjEl.checked = tj;
+ tajweedOn = tj;
+
+ // theme
+ let theme = localStorage.getItem("theme") || "theme-dark";
+ if(typeof applyTheme === "function") applyTheme(theme);
+ let themeEl = document.getElementById("themeSelect");
+ if(themeEl) themeEl.value = theme;
+
+});
+
+
+// ===== LIVE SAVE =====
+
+// SPEED
+let speedSelect = document.getElementById("speedSelect");
+if(speedSelect){
+ speedSelect.onchange = e=>{
+  localStorage.setItem("speed", e.target.value);
+ };
+}
+
+// AUTO NEXT
+let autoNextEl = document.getElementById("autoNext");
+if(autoNextEl){
+ autoNextEl.onchange = e=>{
+  cont = e.target.checked;
+  localStorage.setItem("autoNext", cont);
+ };
+}
+
+// LOOP COUNT
+let loopEl = document.getElementById("loopCount");
+if(loopEl){
+ loopEl.oninput = e=>{
+  repeatCount = e.target.value;
+  localStorage.setItem("loopCount", repeatCount);
+ };
+}
+
+// FONT SIZE
+let sizeEl = document.getElementById("arabicSize");
+if(sizeEl){
+ sizeEl.oninput = e=>{
+  let size = e.target.value;
+  document.documentElement.style.setProperty("--arabicSize", size+"px");
+  localStorage.setItem("arabicSize", size);
+ };
+}
+
+// TRANSLATION
+let transEl = document.getElementById("showTrans");
+if(transEl){
+ transEl.onchange = e=>{
+  showTranslation = e.target.checked;
+  localStorage.setItem("showTrans", showTranslation);
+  if(currentSurah) openSurah(currentSurah.number);
+ };
+}
+
+// TAJWEED
+let tjEl = document.getElementById("tajweedToggle");
+if(tjEl){
+ tjEl.onchange = e=>{
+  tajweedOn = e.target.checked;
+  localStorage.setItem("tajweed", tajweedOn);
+  if(currentSurah) openSurah(currentSurah.number);
+ };
+}
+
+// THEME
+let themeEl = document.getElementById("themeSelect");
+if(themeEl){
+ themeEl.onchange = e=>{
+  if(typeof applyTheme === "function"){
+   applyTheme(e.target.value);
+  }
+ };
+}
+
+// RESET
+function resetSettings(){
+ localStorage.clear();
+ location.reload();
+}
