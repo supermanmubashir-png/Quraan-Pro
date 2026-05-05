@@ -384,37 +384,31 @@ function loadFavorites(){
  }
 
  favorites.forEach(f=>{
-  let [s,a] = f.split(":");
 
   let card = document.createElement("div");
   card.className = "favCard";
 
   card.innerHTML = `
-   <div class="favTitle">Surah ${s} - Ayah ${a}</div>
-   <div class="favAyah">Tap to open</div>
-   <span class="removeFav" onclick="removeFav('${f}', event)">❌</span>
+   <div class="favTitle">
+     ${f.name} • Ayah ${f.ayah}
+     <span class="removeFav" onclick="removeFav('${f.key}', event)">❌</span>
+   </div>
+
+   <div class="favAyah">
+     ${f.text}
+   </div>
   `;
 
   card.onclick = ()=>{
    closeFavorites();
-   openSurah(parseInt(s));
+   openSurah(parseInt(f.surah));
 
    setTimeout(()=>{
-    let el = document.getElementById("ayah-"+a);
+    let el = document.getElementById("ayah-"+f.ayah);
     if(el) el.scrollIntoView({behavior:"smooth"});
    },300);
   };
 
   container.appendChild(card);
  });
-}
-
-// ❌ REMOVE
-function removeFav(key, e){
- e.stopPropagation();
-
- favorites = favorites.filter(f=>f!==key);
- localStorage.setItem("favorites", JSON.stringify(favorites));
-
- loadFavorites();
 }
