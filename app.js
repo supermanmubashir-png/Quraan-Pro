@@ -384,31 +384,69 @@ function loadFavorites(){
  }
 
  favorites.forEach(f=>{
+  let [s,a] = f.split(":");
 
   let card = document.createElement("div");
   card.className = "favCard";
 
   card.innerHTML = `
    <div class="favTitle">
-     ${f.name} • Ayah ${f.ayah}
-     <span class="removeFav" onclick="removeFav('${f.key}', event)">❌</span>
+     Surah ${s} • Ayah ${a}
+     <span class="removeFav" onclick="removeFav('${f}', event)">❌</span>
    </div>
 
    <div class="favAyah">
-     ${f.text}
+     Tap to open
    </div>
   `;
 
   card.onclick = ()=>{
    closeFavorites();
-   openSurah(parseInt(f.surah));
+   openSurah(parseInt(s));
 
    setTimeout(()=>{
-    let el = document.getElementById("ayah-"+f.ayah);
+    let el = document.getElementById("ayah-"+a);
     if(el) el.scrollIntoView({behavior:"smooth"});
-   },300);
+   },400);
   };
 
   container.appendChild(card);
  });
+}
+
+// ❌ REMOVE
+function removeFav(key, e){
+ e.stopPropagation();
+ favorites = favorites.filter(f=>f!==key);
+ localStorage.setItem("favorites", JSON.stringify(favorites));
+ loadFavorites();
+}
+// ===== SAFE FAVORITES =====
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+// ⭐ TOGGLE
+function toggleStar(surah, ayah){
+ let key = surah + ":" + ayah;
+
+ if(favorites.includes(key)){
+  favorites = favorites.filter(f => f !== key);
+ } else {
+  favorites.push(key);
+ }
+
+ localStorage.setItem("favorites", JSON.stringify(favorites));
+}
+
+// ⭐ OPEN PANEL
+function openFavorites(){
+ document.getElementById("favoritesPanel").style.display = "block";
+ document.getElementById("favOverlay").style.display = "block";
+ loadFavorites();
+}
+
+// ⭐ CLOSE PANEL
+function closeFavorites(){
+ document.getElementById("favoritesPanel").style.display = "none";
+ document.getElementById("favOverlay").style.display = "none";
 }
