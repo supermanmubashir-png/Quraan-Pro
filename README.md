@@ -78,7 +78,7 @@ Quraan-Pro/
 ├── manifest.json
 ├── help.html
 ├── updates.html
-
+├──about.html
 
 📥 Installation
 🌐 Use in Browser
