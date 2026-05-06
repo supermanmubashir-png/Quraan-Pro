@@ -13,7 +13,6 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.png">
 <link rel="apple-touch-icon" href="icon.png">
- <link rel="icon" href="favicon.png">
 </head>
 
 <body>
@@ -31,11 +30,8 @@
  <button onclick="getNamaz()">🕌</button>
  <button onclick="openCompass()">🧭</button>
  <button onclick="installApp()">📱</button>
-<a href="help.html" target="_blank" style="text-decoration:none;">
-  <button>❓ HELP</button>
-</a>
+<button onclick="openHelp()">❓ HELP</button>
  <button onclick="window.open('updates.html')">🆕 Updates</button>
- <button onclick="openFavorites()">⭐</button>
 </div>
 
 <!-- SEARCH -->
@@ -142,18 +138,6 @@ Ayah: <input id="ayahInput"><br><br>
  <div id="needle"></div>
 </div>
 <button onclick="closePanels()">Close</button>
-</div>
- <!-- ⭐ FAVORITES PANEL -->
-<div id="favOverlay" onclick="closeFavorites()"></div>
-
-<div id="favoritesPanel" class="panel">
-
-<h2>⭐ Favorites</h2>
-
-<div id="favoritesList"></div>
-
-<button onclick="closeFavorites()">Close</button>
-
 </div>
 
 <!-- FOOTER -->
