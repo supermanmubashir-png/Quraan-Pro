@@ -112,7 +112,7 @@ This project is open for educational and personal use.
 💥 Author
 
 Mubashir Ali
-Creator of Quraan-Pro 📚📚
+Creator of Quraan-Pro 🕌🕌
 
 🌙 Final Note
 
