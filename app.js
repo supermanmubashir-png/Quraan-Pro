@@ -79,18 +79,10 @@ async function openSurah(n){
  let html = "";
 
  currentSurah.ayahs.forEach((a,i)=>{
-  let key = surah.number + ":" + ayah.number;
-let active = favorites.includes(key) ? "active" : "";
-
   html += `
   <div class="ayah" id="a${i}">
-    <button onclick="toggleStar(
- ${surah.number},
- ${ayah.number},
- '${surah.englishName}',
- `${ayah.text.replace(/`/g,"")}`
-)">
-⭐</button>
+   <div class="star" onclick="toggleStar(this,${n},${i})">⭐</div>
+
    <div>${i+1}</div>
    <div class="arabic">${tajweed(a.text)}</div>
 
@@ -323,130 +315,4 @@ function startCompass(){
 function toggleTajweed(){
  tajweedOn = !tajweedOn;
  if(currentSurah) openSurah(currentSurah.number);
-}
-
-if ('serviceWorker' in navigator) {
- navigator.serviceWorker.getRegistrations().then(regs => {
-  regs.forEach(reg => reg.unregister());
- });
-}
-
-// ===== FAVORITES SYSTEM =====
-
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-// ⭐ TOGGLE STAR (ULTRA)
-function toggleStar(surahNum, ayahNum, surahName, ayahText){
-
- let key = surahNum + ":" + ayahNum;
-
- let existing = favorites.find(f => f.key === key);
-
- if(existing){
-  favorites = favorites.filter(f => f.key !== key);
- } else {
-  favorites.push({
-   key: key,
-   surah: surahNum,
-   ayah: ayahNum,
-   name: surahName,
-   text: ayahText
-  });
- }
-
- localStorage.setItem("favorites", JSON.stringify(favorites));
-
- if(currentSurah) openSurah(currentSurah.number);
-}
-// ⭐ OPEN PANEL
-function openFavorites(){
- document.getElementById("favoritesPanel").style.display = "block";
- document.getElementById("favOverlay").style.display = "block";
- loadFavorites();
-}
-
-// ⭐ CLOSE PANEL
-function closeFavorites(){
- document.getElementById("favoritesPanel").style.display = "none";
- document.getElementById("favOverlay").style.display = "none";
-}
-
-// ⭐ LOAD FAVORITES UI
-function loadFavorites(){
- let container = document.getElementById("favoritesList");
- if(!container) return;
-
- container.innerHTML = "";
-
- if(favorites.length === 0){
-  container.innerHTML = "<p>No favorites yet</p>";
-  return;
- }
-
- favorites.forEach(f=>{
-  let [s,a] = f.split(":");
-
-  let card = document.createElement("div");
-  card.className = "favCard";
-
-  card.innerHTML = `
-   <div class="favTitle">
-     Surah ${s} • Ayah ${a}
-     <span class="removeFav" onclick="removeFav('${f}', event)">❌</span>
-   </div>
-
-   <div class="favAyah">
-     Tap to open
-   </div>
-  `;
-
-  card.onclick = ()=>{
-   closeFavorites();
-   openSurah(parseInt(s));
-
-   setTimeout(()=>{
-    let el = document.getElementById("ayah-"+a);
-    if(el) el.scrollIntoView({behavior:"smooth"});
-   },400);
-  };
-
-  container.appendChild(card);
- });
-}
-
-// ❌ REMOVE
-function removeFav(key, e){
- e.stopPropagation();
- favorites = favorites.filter(f=>f!==key);
- localStorage.setItem("favorites", JSON.stringify(favorites));
- loadFavorites();
-}
-// ===== SAFE FAVORITES =====
-
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-// ⭐ TOGGLE
-function toggleStar(surah, ayah){
- let key = surah + ":" + ayah;
-
- if(favorites.includes(key)){
-  favorites = favorites.filter(f => f !== key);
- } else {
-  favorites.push(key);
- }
-
- localStorage.setItem("favorites", JSON.stringify(favorites));
-}
-
-// ⭐ OPEN PANEL
-function openFavorites(){
- document.getElementById("favoritesPanel").style.display = "block";
- document.getElementById("favOverlay").style.display = "block";
- loadFavorites();
-}
-
-// ⭐ CLOSE PANEL
-function closeFavorites(){
- document.getElementById("favoritesPanel").style.display = "none";
- document.getElementById("favOverlay").style.display = "none";
 }
