@@ -3,33 +3,90 @@
 <head>
 <meta charset="UTF-8">
 <title>Quraan-Pro • About</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
- font-family:Arial;
- background:#0a0a0a;
- color:white;
  margin:0;
- padding:20px;
+ font-family:Segoe UI, Arial;
+ background:#0a0a0a;
+ color:#fff;
 }
 
-h1{
- color:gold;
+/* HEADER */
+header{
  text-align:center;
+ padding:40px 10px;
+ background:linear-gradient(180deg,#000,#111);
+ animation:fadeIn 1s ease;
 }
 
-h2{
- color:#00e5ff;
- margin-top:25px;
+header h1{
+ color:gold;
+ font-size:34px;
+ margin:0;
 }
 
+header p{
+ opacity:0.7;
+ margin-top:8px;
+}
+
+/* SECTION */
 .section{
+ padding:30px 20px;
+ max-width:1000px;
+ margin:auto;
+}
+
+/* CARD */
+.card{
  background:rgba(255,255,255,0.05);
+ border-radius:15px;
+ padding:20px;
+ margin-top:15px;
+ backdrop-filter:blur(12px);
+ transition:0.3s;
+ animation:fadeUp 1s ease;
+}
+
+.card:hover{
+ transform:translateY(-5px) scale(1.01);
+ background:rgba(255,255,255,0.08);
+}
+
+/* GRID */
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+ gap:15px;
+}
+
+.feature{
+ background:rgba(255,255,255,0.08);
  padding:15px;
  border-radius:12px;
- margin-top:15px;
+ text-align:center;
+ transition:0.3s;
 }
 
+.feature:hover{
+ transform:scale(1.05);
+ background:rgba(255,255,255,0.12);
+}
+
+.feature span{
+ font-size:24px;
+ display:block;
+ margin-bottom:6px;
+}
+
+/* HEADINGS */
+h2{
+ color:#00e5ff;
+}
+
+/* LIST */
 ul{
  padding-left:20px;
 }
@@ -38,90 +95,218 @@ li{
  margin:6px 0;
 }
 
-.footer{
+/* FOOTER */
+footer{
  text-align:center;
- margin-top:30px;
- opacity:0.7;
+ padding:30px;
+ opacity:0.6;
 }
+
+/* ANIMATIONS (NO JS) */
+@keyframes fadeIn{
+ from{opacity:0;}
+ to{opacity:1;}
+}
+
+@keyframes fadeUp{
+ from{
+  opacity:0;
+  transform:translateY(40px);
+ }
+ to{
+  opacity:1;
+  transform:translateY(0);
+ }
+}
+
+/* STAGGER EFFECT */
+.card:nth-child(1){animation-delay:0.1s}
+.card:nth-child(2){animation-delay:0.2s}
+.card:nth-child(3){animation-delay:0.3s}
+.card:nth-child(4){animation-delay:0.4s}
+.card:nth-child(5){animation-delay:0.5s}
 </style>
 </head>
 
 <body>
 
+<header>
 <h1>🕌 Quraan-Pro</h1>
+<p>Modern • Fast • Beautiful Qur’an Experience</p>
+</header>
 
 <div class="section">
-<b>Quraan-Pro</b> is a modern Progressive Web App designed for a smooth and focused Qur’an reading experience on mobile and desktop.
+
+<div class="card">
+<b style="color:gold;">Quraan-Pro</b> is a powerful Progressive Web App designed to deliver a smooth, distraction-free Qur’an reading experience. It is built with performance, simplicity, and accessibility in mind.
 </div>
 
-<div class="section">
-<h2>✨ Features</h2>
+<h2>📖 About the Project</h2>
+<div class="card">
+Quraan-Pro is designed to replicate a real mobile Qur’an application inside the browser. It focuses on speed, usability, and offline-friendly design. It combines multiple Islamic tools into a single unified platform.
+</div>
+
+<h2>✨ Core Features Overview</h2>
+<div class="card">
 <ul>
-<li>📖 Full Qur’an browsing (Surah → Ayah)</li>
-<li>🎧 Audio playback with reciters</li>
-<li>🧠 Tajweed mode</li>
-<li>⭐ Favorites system</li>
-<li>🎨 Themes & UI customization</li>
-<li>⚙️ Advanced settings</li>
-<li>📱 Installable PWA</li>
+<li>Full Qur’an navigation (Surah → Ayah level access)</li>
+<li>Beautiful Arabic rendering system</li>
+<li>Optional translation support</li>
+<li>Audio playback system with multiple reciters</li>
+<li>Favorites system for saving ayahs</li>
+<li>Advanced settings panel</li>
+<li>Progressive Web App support</li>
+<li>Offline caching via service worker</li>
 </ul>
 </div>
 
-<div class="section">
-<h2>🎧 Audio</h2>
+<h2>📖 Reading System</h2>
+<div class="card">
+The reading system is designed for clarity and comfort. Each Surah is structured with proper spacing and clean typography.
+<br><br>
+Features include:
 <ul>
-<li>Play ayah</li>
-<li>Speed control</li>
-<li>Loop / repeat</li>
-<li>Auto next</li>
+<li>Auto-loaded Surah content</li>
+<li>Scroll-based navigation</li>
+<li>Clickable ayahs</li>
+<li>Optional translation display</li>
+<li>Custom font sizing support</li>
+<li>Responsive layout for mobile devices</li>
 </ul>
 </div>
 
-<div class="section">
-<h2>⭐ Favorites</h2>
+<h2>🎧 Audio Engine</h2>
+<div class="card">
+The audio system supports multiple reciters and flexible playback options.
+<br><br>
+Capabilities:
 <ul>
-<li>Bookmark multiple ayahs</li>
+<li>Play individual ayahs</li>
+<li>Continuous Surah playback</li>
+<li>Speed adjustment control</li>
+<li>Repeat / loop functionality</li>
+<li>Pause delay customization</li>
+<li>Auto next ayah system</li>
+</ul>
+</div>
+
+<h2>🧠 Tajweed System</h2>
+<div class="card">
+Tajweed mode helps users identify correct pronunciation rules visually.
+<ul>
+<li>Toggle ON/OFF anytime</li>
+<li>Color-coded highlighting</li>
+<li>Improves recitation learning</li>
+<li>Lightweight implementation</li>
+</ul>
+</div>
+
+<h2>⭐ Favorites System</h2>
+<div class="card">
+Favorites allow users to bookmark important ayahs for quick access later.
+<br><br>
+System features:
+<ul>
+<li>Multi-ayah bookmarking</li>
+<li>Persistent local storage</li>
 <li>Quick access panel</li>
-<li>Tap to jump</li>
+<li>Instant navigation to saved ayahs</li>
+<li>Easy remove functionality</li>
 </ul>
 </div>
 
-<div class="section">
-<h2>🎨 UI</h2>
+<h2>🎨 UI & Themes</h2>
+<div class="card">
+Quraan-Pro includes multiple visual themes designed for comfort and readability.
 <ul>
-<li>Dark / Light themes</li>
-<li>Kaaba theme</li>
-<li>Responsive design</li>
+<li>Dark mode optimized for night reading</li>
+<li>Light mode for daytime use</li>
+<li>Kaaba-inspired premium theme</li>
+<li>Smooth glass-style UI elements</li>
+<li>Responsive layout system</li>
 </ul>
 </div>
 
-<div class="section">
-<h2>📱 PWA</h2>
+<h2>⚙ Settings System</h2>
+<div class="card">
+The settings system allows full personalization of the app experience.
 <ul>
-<li>Install as app</li>
-<li>Offline support</li>
-<li>Fast loading</li>
+<li>Audio configuration controls</li>
+<li>Reciter selection system</li>
+<li>Font size customization</li>
+<li>Translation toggle system</li>
+<li>Tajweed activation</li>
+<li>Loop and playback settings</li>
+<li>Saved preferences using localStorage</li>
 </ul>
 </div>
 
-<div class="section">
-<h2>🚀 Tech</h2>
+<h2>🧭 Islamic Tools</h2>
+<div class="card">
+Additional tools are included to support daily Islamic practice.
 <ul>
-<li>HTML, CSS, JavaScript</li>
-<li>Service Worker</li>
-<li>LocalStorage</li>
-<li>GitHub Pages</li>
+<li>Qiblah direction compass</li>
+<li>Prayer-related utilities</li>
+<li>Quick access buttons</li>
 </ul>
 </div>
 
-<div class="section">
-<h2>💥 Author</h2>
-Mubashir Ali 😈🔥
+<h2>📱 Progressive Web App (PWA)</h2>
+<div class="card">
+Quraan-Pro is fully installable like a native application.
+<br><br>
+Features:
+<ul>
+<li>Add to home screen support</li>
+<li>Offline caching system</li>
+<li>Fast loading performance</li>
+<li>App-like full-screen mode</li>
+</ul>
 </div>
 
-<div class="footer">
-Quraan-Pro © All rights reserved
+<h2>🚀 Performance Design</h2>
+<div class="card">
+The app is optimized for low memory usage and fast rendering.
+<ul>
+<li>Lightweight JavaScript</li>
+<li>Efficient DOM updates</li>
+<li>Minimal dependencies</li>
+<li>Cached resources via service worker</li>
+</ul>
 </div>
 
+<h2>📊 Future Improvements</h2>
+<div class="card">
+Planned enhancements for future versions:
+<ul>
+<li>Advanced search system</li>
+<li>Offline full audio download</li>
+<li>AI-based memorization mode</li>
+<li>Cloud sync for bookmarks</li>
+<li>Multi-language UI support</li>
+</ul>
+</div>
+
+<h2>🧑‍💻 Developer Note</h2>
+<div class="card">
+Quraan-Pro is built with a focus on simplicity and accessibility. It avoids heavy frameworks to ensure fast performance on all devices, especially low-end mobile phones.
+</div>
+
+<h2>📜 Philosophy</h2>
+<div class="card">
+The goal of this project is to make Qur’an reading digitally accessible, clean, and distraction-free while maintaining a respectful and user-friendly interface.
+</div>
+
+<h2>👨‍💻 Author</h2>
+<div class="card">
+Mubashir Ali 😈🔥  
+Creator of Quraan-Pro
+</div>
+
+</div>
+
+<footer>
+Quraan-Pro • Built with passion and purpose
+</footer>
 </body>
 </html>
