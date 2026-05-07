@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quraan-Pro • Changelog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+ margin:0;
+ font-family:Segoe UI;
+ background:#0a0a0a;
+ color:#fff;
+}
+
+header{
+ text-align:center;
+ padding:30px;
+ background:#000;
+}
+
+h1{color:gold}
+
+.timeline{
+ position:relative;
+ max-width:900px;
+ margin:auto;
+ padding:20px;
+}
+
+.timeline::before{
+ content:'';
+ position:absolute;
+ left:50%;
+ width:3px;
+ background:gold;
+ top:0;
+ bottom:0;
+}
+
+/* ENTRY */
+.entry{
+ position:relative;
+ width:50%;
+ padding:20px;
+}
+
+.entry.left{left:0}
+.entry.right{left:50%}
+
+.card{
+ background:rgba(255,255,255,0.05);
+ padding:15px;
+ border-radius:12px;
+}
+
+.entry::after{
+ content:'';
+ position:absolute;
+ top:25px;
+ width:12px;
+ height:12px;
+ background:gold;
+ border-radius:50%;
+}
+
+.entry.left::after{right:-6px}
+.entry.right::after{left:-6px}
+
+/* HEADER */
+.versionHeader{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ margin-bottom:10px;
+}
+
+.version{
+ color:#00e5ff;
+ font-weight:bold;
+}
+
+/* BADGES */
+.badge{
+ padding:3px 8px;
+ border-radius:6px;
+ font-size:11px;
+ font-weight:bold;
+}
+
+.new{background:#00e5ff;color:#000}
+.major{background:#ff5252}
+.fix{background:#ffd600;color:#000}
+.base{background:#777}
+
+/* DETAILS */
+details{
+ margin-top:5px;
+}
+
+summary{
+ cursor:pointer;
+ font-size:13px;
+ opacity:0.7;
+}
+
+details[open] summary{
+ opacity:1;
+}
+
+/* MOBILE */
+@media(max-width:700px){
+ .entry{width:100%; left:0}
+ .timeline::before{left:10px}
+ .entry::after{left:4px}
+}
+
+footer{
+ text-align:center;
+ padding:20px;
+ opacity:0.6;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🆕 Quraan-Pro Changelog</h1>
+<p>Detailed version history</p>
+</header>
+
+<div class="timeline">
+
+<!-- v6.5.7 -->
+<div class="entry left">
+<div class="card">
+<div class="versionHeader">
+<span class="version">v6.5.7</span>
+<span class="badge new">NEW</span>
+</div>
+
+<details open>
+<summary>Tap to view details</summary>
+<ul>
+<li>Final UI polish across entire app</li>
+<li>Improved sidebar responsiveness</li>
+<li>Better mobile layout fixes</li>
+<li>Minor bug fixes in navigation</li>
+</ul>
+</details>
+
+</div>
+</div>
+
+<!-- v6.5.0 -->
+<div class="entry right">
+<div class="card">
+<div class="versionHeader">
+<span class="version">v6.5.0</span>
+<span class="badge major">MAJOR</span>
+</div>
+
+<details>
+<summary>Tap to view details</summary>
+<ul>
+<li>Kaaba Theme introduced 🕋🕋</li>
+<li>Full gold style redesign</li>
+<li>Enhanced UI depth and gradients</li>
+<li>Improved settings integration</li>
+</ul>
+</details>
+
+</div>
+</div>
+
+<!-- v6.0.0 -->
+<div class="entry left">
+<div class="card">
+<div class="versionHeader">
+<span class="version">v6.0.0</span>
+<span class="badge major">MAJOR</span>
+</div>
+
+<details>
+<summary>Tap to view details</summary>
+<ul>
+<li>Complete UI redesign</li>
+<li>Improved layout system</li>
+<li>Better performance optimization</li>
+<li>Modernized structure</li>
+</ul>
+</details>
+
+</div>
+</div>
+
+<!-- v5.5.0 -->
+<div class="entry right">
+<div class="card">
+<div class="versionHeader">
+<span class="version">v5.5.0</span>
+<span class="badge new">NEW</span>
+</div>
+
+<details>
+<summary>Tap to view details</summary>
+<ul>
+<li>Favorites system added ⭐</li>
+<li>Bookmarking ayahs</li>
+<li>Quick access improvements</li>
+</ul>
+</details>
+
+</div>
+</div>
+
+<!-- v5.0.0 -->
+<div class="entry left">
+<div class="card">
+<div class="versionHeader">
+<span class="version">v5.0.0</span>
+<span class="badge major">MAJOR</span>
+</div>
+
+<details>
+<summary>Tap to view details</summary>
+<ul>
+<li>Audio system upgrade 🎧</li>
+<li>Better playback controls</li>
+<li>Improved reciter handling</li>
+</ul>
+</details>
+
+</div>
+</div>
+
+<!-- v4.5.0 -->
+<div class="entry right">
+<div class="card">
+<div class="versionHeader">
+<span class="version">v4.5.0</span>
+<span class="badge new">NEW</span>
+</div>
+
+<details>
+<summary>Tap to view details</summary>
+<ul>
+<li>Tajweed toggle introduced 🧠</li>
+<li>Color highlighting system</li>
+<li>Better Arabic rendering</li>
+</ul>
+</details>
+
+</div>
+</div>
+
+<!-- v4.0.0 -->
+<div class="entry left">
+<div class="card">
+<div class="versionHeader">
+<span class="version">v4.0.0</span>
+<span class="badge major">MAJOR</span>
+</div>
+
+<details>
+<summary>Tap to view details</summary>
+<ul>
+<li>Settings panel added ⚙</li>
+<li>Theme switching enabled</li>
+<li>UI customization started</li>
+</ul>
+</details>
+
+</div>
+</div>
+
+<!-- v3.0.0 -->
+<div class="entry right">
+<div class="card">
+<div class="versionHeader">
+<span class="version">v3.0.0</span>
+<span class="badge major">MAJOR</span>
+</div>
+
+<details>
+<summary>Tap to view details</summary>
+<ul>
+<li>Audio reciters introduced</li>
+<li>Playback system added</li>
+<li>Basic audio controls</li>
+</ul>
+</details>
+
+</div>
+</div>
+
+<!-- v2.0.0 -->
+<div class="entry left">
+<div class="card">
+<div class="versionHeader">
+<span class="version">v2.0.0</span>
+<span class="badge fix">IMPROVE</span>
+</div>
+
+<details>
+<summary>Tap to view details</summary>
+<ul>
+<li>Improved navigation system</li>
+<li>Better layout stability</li>
+<li>Performance enhancements</li>
+</ul>
+</details>
+
+</div>
+</div>
+
+<!-- v1.0.0 -->
+<div class="entry right">
+<div class="card">
+<div class="versionHeader">
+<span class="version">v1.0.0</span>
+<span class="badge base">BASE</span>
+</div>
+
+<details>
+<summary>Tap to view details</summary>
+<ul>
+<li>Initial release</li>
+<li>Basic Qur’an reading</li>
+<li>Simple UI layout</li>
+<li>Core functionality setup</li>
+</ul>
+</details>
+
+</div>
+</div>
+
+</div>
+
+<footer>
+<a href="index.html">Home</a> • 
+<a href="about.html">About</a>
+</footer>
+
+</body>
+</html>
