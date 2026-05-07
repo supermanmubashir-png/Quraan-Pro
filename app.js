@@ -316,3 +316,34 @@ function toggleTajweed(){
  tajweedOn = !tajweedOn;
  if(currentSurah) openSurah(currentSurah.number);
 }
+
+// ===== HANDLE HASH NAVIGATION (favorites jump) =====
+window.addEventListener("load", () => {
+  const hash = window.location.hash;
+
+  if (hash) {
+    // format: #2:152
+    const parts = hash.replace("#", "").split(":");
+
+    if (parts.length === 2) {
+      const surahNum = parseInt(parts[0]);
+      const ayahNum = parseInt(parts[1]);
+
+      if (!isNaN(surahNum) && !isNaN(ayahNum)) {
+        // open surah first
+        if (typeof openSurah === "function") {
+          openSurah(surahNum);
+
+          // wait a bit, then scroll to ayah
+          setTimeout(() => {
+            const ayahEl = document.querySelector(`[data-ayah="${ayahNum}"]`);
+            if (ayahEl) {
+              ayahEl.scrollIntoView({ behavior: "smooth", block: "center" });
+              ayahEl.style.background = "rgba(255,215,0,0.2)";
+            }
+          }, 500);
+        }
+      }
+    }
+  }
+});
