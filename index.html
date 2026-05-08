@@ -11,6 +11,7 @@
 
 <style>
 /* BASE */
+/* BODY */
 body{
  margin:0;
  height:100vh;
@@ -21,33 +22,66 @@ body{
  color:#fff;
  overflow:hidden;
 
+ /* ULTRA GRADIENT */
  background:
- radial-gradient(circle at 50% 40%, rgba(255,215,0,0.08), transparent 60%),
- linear-gradient(-45deg,#000,#0a0a0a,#111,#000);
-
+ radial-gradient(circle at 20% 30%, rgba(255,215,0,0.08), transparent 40%),
+ radial-gradient(circle at 80% 70%, rgba(255,215,0,0.05), transparent 40%),
+ linear-gradient(-45deg,#000,#0a0a0a,#111,#000,#1a1a1a,#000);
  background-size:400% 400%;
  animation:bgMove 12s ease infinite;
 }
-/* BACKGROUND FLOW */
+
+/* FLOW */
 @keyframes bgMove{
  0%{background-position:0% 50%}
  50%{background-position:100% 50%}
  100%{background-position:0% 50%}
 }
 
-/* PARTICLES */
+/* PARTICLE LAYER */
 body::before{
  content:"";
  position:absolute;
  width:200%;
  height:200%;
  background:
- radial-gradient(circle at 20% 30%, rgba(255,215,0,0.08) 2px, transparent 3px),
- radial-gradient(circle at 70% 60%, rgba(255,215,0,0.06) 2px, transparent 3px),
- radial-gradient(circle at 40% 80%, rgba(255,215,0,0.05) 2px, transparent 3px);
- animation:float 20s linear infinite;
+ radial-gradient(circle at 10% 20%, rgba(255,215,0,0.1) 1px, transparent 2px),
+ radial-gradient(circle at 30% 80%, rgba(255,215,0,0.08) 1px, transparent 2px),
+ radial-gradient(circle at 70% 40%, rgba(255,215,0,0.06) 1px, transparent 2px),
+ radial-gradient(circle at 90% 60%, rgba(255,215,0,0.07) 1px, transparent 2px);
+ animation:floatParticles 25s linear infinite;
 }
 
+/* GOLD GLOW WAVE */
+body::after{
+ content:"";
+ position:absolute;
+ width:150%;
+ height:150%;
+ background:radial-gradient(circle, rgba(255,215,0,0.05), transparent 60%);
+ animation:rotateGlow 30s linear infinite;
+}
+
+/* PARTICLE MOTION */
+@keyframes floatParticles{
+ from{transform:translateY(0)}
+ to{transform:translateY(-300px)}
+}
+
+/* ROTATING GLOW */
+@keyframes rotateGlow{
+ from{transform:rotate(0deg)}
+ to{transform:rotate(360deg)}
+}
+
+/* VIGNETTE (DARK EDGES) */
+html::after{
+ content:"";
+ position:fixed;
+ inset:0;
+ background:radial-gradient(circle, transparent 50%, rgba(0,0,0,0.8));
+ pointer-events:none;
+}
 /* FLOAT ANIMATION */
 @keyframes float{
  from{transform:translateY(0)}
@@ -161,83 +195,6 @@ h1{
  0%{background-position:0%}
  100%{background-position:200%}
 }
- /* LOGO CONTAINER */
-.logo{
- width:70px;
- height:70px;
- margin:auto;
- margin-bottom:15px;
- perspective:500px;
-}
-
-/* KAABA STYLE CUBE */
-.cube{
- width:100%;
- height:100%;
- background:#000;
- border:2px solid gold;
- position:relative;
- animation:spin 6s linear infinite;
- box-shadow:0 0 20px rgba(255,215,0,0.3);
-}
-
-/* GOLD BAND */
-.cube::before{
- content:"";
- position:absolute;
- top:25%;
- left:0;
- width:100%;
- height:6px;
- background:gold;
-}
-
-/* ANIMATION */
-@keyframes spin{
- from{transform:rotateY(0deg)}
- to{transform:rotateY(360deg)}
-}
- .cube{
- box-shadow:
- 0 0 10px gold,
- 0 0 30px rgba(255,215,0,0.4);
-}
- animation:spin 10s linear infinite;
-.appLogo{
- width:100px;
- height:100px;
- object-fit:cover;
- object-position:center 30%; /* adjust this */
- border-radius:20px;
-}
-
- /* IMPORTANT */
- object-fit:cover;
- object-position:center;
-
- border-radius:20px;
-
- /* crop clean */
- background:#000;
-
- /* glow */
- box-shadow:
- 0 0 10px gold,
- 0 0 30px rgba(255,215,0,0.5);
-
- margin-bottom:15px;
-
- /* smooth animation */
- animation:logoFloat 3s ease-in-out infinite;
-}
-
-@keyframes logoFloat{
- 0%,100%{transform:translateY(0)}
- 50%{transform:translateY(-6px)}
-}
- .appLogo:active{
- transform:scale(0.95);
-}
 </style>
 </head>
 
@@ -245,8 +202,8 @@ h1{
 
 <div class="container">
 
-<img src="icon.png" class="appLogo">
- 
+<div class="icon">🕌</div>
+
 <h1>Quraan-Pro</h1>
 
 <div class="tagline">
