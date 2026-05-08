@@ -10,9 +10,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-
 /* =========================
-   ICON SPLASH ULTRA
+   ICON SPLASH FINAL
 ========================= */
 .iconSplash{
  position:fixed;
@@ -23,34 +22,35 @@
  justify-content:center;
  z-index:9999;
 
- animation:fadeOut 2.5s ease forwards;
+ animation:fadeOut 2.8s ease forwards;
 }
 
 /* WRAPPER */
 .iconWrap{
  position:relative;
  display:flex;
+ flex-direction:column;
  align-items:center;
  justify-content:center;
 }
 
-/* ICON IMAGE */
+/* ICON */
 .iconWrap img{
- width:120px; /* BIGGER */
- height:120px;
+ width:130px;
+ height:130px;
 
- animation:iconEntry 1.2s ease;
- filter:drop-shadow(0 0 25px rgba(255,215,0,0.6));
+ animation:iconEntry 1.2s ease, vibrate 0.3s linear 3;
+ filter:drop-shadow(0 0 35px rgba(255,215,0,0.8));
 }
 
-/* ENTRY ANIMATION (BIG + SMOOTH) */
+/* ICON ENTRY */
 @keyframes iconEntry{
  0%{
-  transform:scale(0) rotate(-20deg);
+  transform:scale(0) rotate(-25deg);
   opacity:0;
  }
  60%{
-  transform:scale(1.3) rotate(5deg);
+  transform:scale(1.35) rotate(5deg);
  }
  100%{
   transform:scale(1) rotate(0);
@@ -58,11 +58,35 @@
  }
 }
 
-/* GLOW RINGS */
+/* VIBRATION (SUBTLE) */
+@keyframes vibrate{
+ 0%{transform:translate(0)}
+ 25%{transform:translate(1px,-1px)}
+ 50%{transform:translate(-1px,1px)}
+ 75%{transform:translate(1px,1px)}
+ 100%{transform:translate(0)}
+}
+
+/* APP NAME */
+.appName{
+ margin-top:15px;
+ font-size:22px;
+ color:gold;
+ letter-spacing:1px;
+
+ animation:fadeIn 1.5s ease;
+
+ text-shadow:
+ 0 0 5px rgba(255,215,0,0.6),
+ 0 0 15px rgba(255,215,0,0.4),
+ 0 0 25px rgba(255,215,0,0.2);
+}
+
+/* RINGS */
 .ring{
  position:absolute;
- width:200px;
- height:200px;
+ width:220px;
+ height:220px;
  border:2px solid rgba(255,215,0,0.4);
  border-radius:50%;
  animation:ringPulse 2s infinite;
@@ -75,24 +99,30 @@
 /* RING ANIMATION */
 @keyframes ringPulse{
  0%{
-  transform:scale(0.5);
+  transform:scale(0.6);
   opacity:0.6;
  }
  100%{
-  transform:scale(1.5);
+  transform:scale(1.6);
   opacity:0;
  }
+}
+
+/* FADE IN */
+@keyframes fadeIn{
+ from{opacity:0}
+ to{opacity:1}
 }
 
 /* FADE OUT */
 @keyframes fadeOut{
  0%{opacity:1}
- 80%{opacity:1}
+ 85%{opacity:1}
  100%{
   opacity:0;
   visibility:hidden;
  }
-} 
+}
 /* BASE */
 
 /* BODY */
@@ -375,6 +405,11 @@ h1{
 <div class="iconSplash">
   <div class="iconWrap">
     <img src="icon.png" alt="App Icon">
+
+    <!-- GLOW TEXT -->
+    <div class="appName">Quraan-Pro</div>
+
+    <!-- RINGS -->
     <div class="ring"></div>
     <div class="ring ring2"></div>
   </div>
