@@ -3,36 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <title>Quraan-Pro</title>
+
+<!-- AUTO REDIRECT -->
+<meta http-equiv="refresh" content="4;url=home.html">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* BODY */
+/* BASE */
 body{
  margin:0;
  height:100vh;
  display:flex;
  align-items:center;
  justify-content:center;
- font-family:Segoe UI;
- color:white;
+ font-family:Segoe UI, sans-serif;
+ color:#fff;
  overflow:hidden;
 
- /* ANIMATED BACKGROUND */
- background:linear-gradient(270deg,#000,#111,#000,#222,#000);
- background-size:600% 600%;
+ background:linear-gradient(-45deg,#000,#111,#000,#222,#000);
+ background-size:400% 400%;
  animation:bgMove 10s ease infinite;
 }
 
-/* BACKGROUND ANIMATION */
+/* BACKGROUND FLOW */
 @keyframes bgMove{
  0%{background-position:0% 50%}
  50%{background-position:100% 50%}
  100%{background-position:0% 50%}
 }
 
-/* CONTAINER */
+/* PARTICLES */
+body::before{
+ content:"";
+ position:absolute;
+ width:200%;
+ height:200%;
+ background:
+ radial-gradient(circle at 20% 30%, rgba(255,215,0,0.08) 2px, transparent 3px),
+ radial-gradient(circle at 70% 60%, rgba(255,215,0,0.06) 2px, transparent 3px),
+ radial-gradient(circle at 40% 80%, rgba(255,215,0,0.05) 2px, transparent 3px);
+ animation:float 20s linear infinite;
+}
+
+/* FLOAT ANIMATION */
+@keyframes float{
+ from{transform:translateY(0)}
+ to{transform:translateY(-200px)}
+}
+
+/* MAIN */
 .container{
  text-align:center;
+ z-index:2;
  animation:fadeIn 1.5s ease;
 }
 
@@ -45,24 +68,28 @@ body{
 
 /* TITLE */
 h1{
- color:gold;
  margin:0;
- font-size:34px;
+ font-size:36px;
+ color:gold;
  letter-spacing:1px;
  animation:slideUp 1.2s ease;
+ text-shadow:0 0 15px rgba(255,215,0,0.5);
 }
 
-/* TAGLINE */
-p{
- opacity:0.7;
+/* SHIMMER TEXT */
+.tagline{
  margin-top:10px;
  font-size:14px;
- animation:fadeIn 2s ease;
+ background:linear-gradient(90deg,#aaa,#fff,#aaa);
+ background-size:200%;
+ -webkit-background-clip:text;
+ -webkit-text-fill-color:transparent;
+ animation:shine 3s linear infinite;
 }
 
 /* LOADER */
 .loader{
- margin-top:30px;
+ margin-top:25px;
  display:flex;
  justify-content:center;
  gap:8px;
@@ -79,17 +106,31 @@ p{
 .dot:nth-child(2){animation-delay:0.2s}
 .dot:nth-child(3){animation-delay:0.4s}
 
-/* BUTTON (WELCOME STYLE) */
+/* STATUS TEXT */
+.status{
+ margin-top:15px;
+ font-size:12px;
+ opacity:0.6;
+ animation:fadeIn 3s ease;
+}
+
+/* BUTTON */
 .btn{
  display:inline-block;
- margin-top:30px;
+ margin-top:25px;
  padding:12px 20px;
  background:gold;
  color:#000;
  text-decoration:none;
  border-radius:10px;
  font-weight:bold;
+ transition:0.3s;
  animation:fadeIn 3s ease;
+}
+
+.btn:hover{
+ transform:scale(1.05);
+ background:#ffd700;
 }
 
 /* ANIMATIONS */
@@ -114,26 +155,9 @@ p{
  50%{transform:translateY(-10px)}
 }
 
-/* AUTO REDIRECT */
-.redirect{
- position:absolute;
- width:0;
- height:0;
- overflow:hidden;
-}
-
-.redirect iframe{
- border:0;
- width:0;
- height:0;
- animation:go 4s forwards;
-}
-
-@keyframes go{
- to{
-  width:100vw;
-  height:100vh;
- }
+@keyframes shine{
+ 0%{background-position:0%}
+ 100%{background-position:200%}
 }
 </style>
 </head>
@@ -146,23 +170,24 @@ p{
 
 <h1>Quraan-Pro</h1>
 
-<p>Read the Qur’an with a clean, modern experience</p>
+<div class="tagline">
+Read the Qur’an with clarity & beauty
+</div>
 
-<!-- LOADING DOTS -->
+<!-- LOADER -->
 <div class="loader">
 <div class="dot"></div>
 <div class="dot"></div>
 <div class="dot"></div>
 </div>
 
-<!-- OPTIONAL BUTTON -->
-<a href="home.html" class="btn">Enter Now</a>
-
+<div class="status">
+Opening Home...
 </div>
 
-<!-- AUTO LOAD APP -->
-<div class="redirect">
-<iframe src="home.html"></iframe>
+<!-- MANUAL BUTTON -->
+<a href="home.html" class="btn">Enter Now</a>
+
 </div>
 
 </body>
