@@ -222,6 +222,18 @@ h1{
  0%,100%{transform:translateY(0)}
  50%{transform:translateY(-8px)}
 }
+ .appLogo{
+ animation:logoFloat 3s ease-in-out infinite,
+           pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow{
+ 0%,100%{filter:drop-shadow(0 0 10px gold)}
+ 50%{filter:drop-shadow(0 0 25px gold)}
+}
+ .appLogo:active{
+ transform:scale(0.95);
+}
 </style>
 </head>
 
