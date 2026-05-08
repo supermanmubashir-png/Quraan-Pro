@@ -10,7 +10,42 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+
+/* ICON SPLASH (FIRST SCREEN) */
+.iconSplash{
+ position:fixed;
+ inset:0;
+ background:#000;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ z-index:9999;
+ animation:iconFade 2s ease forwards;
+}
+
+/* ICON IMAGE */
+.iconSplash img{
+ width:90px;
+ height:90px;
+ animation:iconPop 1s ease;
+}
+
+/* ICON ANIMATION */
+@keyframes iconPop{
+ 0%{transform:scale(0)}
+ 80%{transform:scale(1.2)}
+ 100%{transform:scale(1)}
+}
+
+/* FADE OUT TO MAIN SPLASH */
+@keyframes iconFade{
+ 0%{opacity:1}
+ 80%{opacity:1}
+ 100%{opacity:0; visibility:hidden}
+}
+   
 /* BASE */
+
 /* BODY */
 /* =========================
    FINAL BOSS BACKGROUND
@@ -288,6 +323,9 @@ h1{
 </head>
 
 <body>
+   <div class="iconSplash">
+  <img src="icon.png" alt="App Icon">
+</div>
    <div class="pattern"></div>
 <div class="stars"></div>
 <div class="light"></div>
