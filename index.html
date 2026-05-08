@@ -11,7 +11,9 @@
 
 <style>
 
-/* ICON SPLASH (FIRST SCREEN) */
+/* =========================
+   ICON SPLASH ULTRA
+========================= */
 .iconSplash{
  position:fixed;
  inset:0;
@@ -20,30 +22,77 @@
  align-items:center;
  justify-content:center;
  z-index:9999;
- animation:iconFade 2s ease forwards;
+
+ animation:fadeOut 2.5s ease forwards;
+}
+
+/* WRAPPER */
+.iconWrap{
+ position:relative;
+ display:flex;
+ align-items:center;
+ justify-content:center;
 }
 
 /* ICON IMAGE */
-.iconSplash img{
- width:90px;
- height:90px;
- animation:iconPop 1s ease;
+.iconWrap img{
+ width:120px; /* BIGGER */
+ height:120px;
+
+ animation:iconEntry 1.2s ease;
+ filter:drop-shadow(0 0 25px rgba(255,215,0,0.6));
 }
 
-/* ICON ANIMATION */
-@keyframes iconPop{
- 0%{transform:scale(0)}
- 80%{transform:scale(1.2)}
- 100%{transform:scale(1)}
+/* ENTRY ANIMATION (BIG + SMOOTH) */
+@keyframes iconEntry{
+ 0%{
+  transform:scale(0) rotate(-20deg);
+  opacity:0;
+ }
+ 60%{
+  transform:scale(1.3) rotate(5deg);
+ }
+ 100%{
+  transform:scale(1) rotate(0);
+  opacity:1;
+ }
 }
 
-/* FADE OUT TO MAIN SPLASH */
-@keyframes iconFade{
+/* GLOW RINGS */
+.ring{
+ position:absolute;
+ width:200px;
+ height:200px;
+ border:2px solid rgba(255,215,0,0.4);
+ border-radius:50%;
+ animation:ringPulse 2s infinite;
+}
+
+.ring2{
+ animation-delay:1s;
+}
+
+/* RING ANIMATION */
+@keyframes ringPulse{
+ 0%{
+  transform:scale(0.5);
+  opacity:0.6;
+ }
+ 100%{
+  transform:scale(1.5);
+  opacity:0;
+ }
+}
+
+/* FADE OUT */
+@keyframes fadeOut{
  0%{opacity:1}
  80%{opacity:1}
- 100%{opacity:0; visibility:hidden}
-}
-   
+ 100%{
+  opacity:0;
+  visibility:hidden;
+ }
+} 
 /* BASE */
 
 /* BODY */
@@ -323,8 +372,12 @@ h1{
 </head>
 
 <body>
-   <div class="iconSplash">
-  <img src="icon.png" alt="App Icon">
+<div class="iconSplash">
+  <div class="iconWrap">
+    <img src="icon.png" alt="App Icon">
+    <div class="ring"></div>
+    <div class="ring ring2"></div>
+  </div>
 </div>
    <div class="pattern"></div>
 <div class="stars"></div>
