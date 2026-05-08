@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quraan-Pro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* BODY */
+body{
+ margin:0;
+ height:100vh;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-family:Segoe UI;
+ color:white;
+ overflow:hidden;
+
+ /* ANIMATED BACKGROUND */
+ background:linear-gradient(270deg,#000,#111,#000,#222,#000);
+ background-size:600% 600%;
+ animation:bgMove 10s ease infinite;
+}
+
+/* BACKGROUND ANIMATION */
+@keyframes bgMove{
+ 0%{background-position:0% 50%}
+ 50%{background-position:100% 50%}
+ 100%{background-position:0% 50%}
+}
+
+/* CONTAINER */
+.container{
+ text-align:center;
+ animation:fadeIn 1.5s ease;
+}
+
+/* ICON */
+.icon{
+ font-size:70px;
+ margin-bottom:15px;
+ animation:pop 1s ease;
+}
+
+/* TITLE */
+h1{
+ color:gold;
+ margin:0;
+ font-size:34px;
+ letter-spacing:1px;
+ animation:slideUp 1.2s ease;
+}
+
+/* TAGLINE */
+p{
+ opacity:0.7;
+ margin-top:10px;
+ font-size:14px;
+ animation:fadeIn 2s ease;
+}
+
+/* LOADER */
+.loader{
+ margin-top:30px;
+ display:flex;
+ justify-content:center;
+ gap:8px;
+}
+
+.dot{
+ width:10px;
+ height:10px;
+ background:gold;
+ border-radius:50%;
+ animation:bounce 1s infinite;
+}
+
+.dot:nth-child(2){animation-delay:0.2s}
+.dot:nth-child(3){animation-delay:0.4s}
+
+/* BUTTON (WELCOME STYLE) */
+.btn{
+ display:inline-block;
+ margin-top:30px;
+ padding:12px 20px;
+ background:gold;
+ color:#000;
+ text-decoration:none;
+ border-radius:10px;
+ font-weight:bold;
+ animation:fadeIn 3s ease;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn{
+ from{opacity:0}
+ to{opacity:1}
+}
+
+@keyframes slideUp{
+ from{transform:translateY(20px); opacity:0}
+ to{transform:translateY(0); opacity:1}
+}
+
+@keyframes pop{
+ 0%{transform:scale(0)}
+ 80%{transform:scale(1.2)}
+ 100%{transform:scale(1)}
+}
+
+@keyframes bounce{
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-10px)}
+}
+
+/* AUTO REDIRECT */
+.redirect{
+ position:absolute;
+ width:0;
+ height:0;
+ overflow:hidden;
+}
+
+.redirect iframe{
+ border:0;
+ width:0;
+ height:0;
+ animation:go 4s forwards;
+}
+
+@keyframes go{
+ to{
+  width:100vw;
+  height:100vh;
+ }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="icon">🕌</div>
+
+<h1>Quraan-Pro</h1>
+
+<p>Read the Qur’an with a clean, modern experience</p>
+
+<!-- LOADING DOTS -->
+<div class="loader">
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+</div>
+
+<!-- OPTIONAL BUTTON -->
+<a href="index.html" class="btn">Enter Now</a>
+
+</div>
+
+<!-- AUTO LOAD APP -->
+<div class="redirect">
+<iframe src="index.html"></iframe>
+</div>
+
+</body>
+</html>
