@@ -161,6 +161,48 @@ h1{
  0%{background-position:0%}
  100%{background-position:200%}
 }
+ /* LOGO CONTAINER */
+.logo{
+ width:70px;
+ height:70px;
+ margin:auto;
+ margin-bottom:15px;
+ perspective:500px;
+}
+
+/* KAABA STYLE CUBE */
+.cube{
+ width:100%;
+ height:100%;
+ background:#000;
+ border:2px solid gold;
+ position:relative;
+ animation:spin 6s linear infinite;
+ box-shadow:0 0 20px rgba(255,215,0,0.3);
+}
+
+/* GOLD BAND */
+.cube::before{
+ content:"";
+ position:absolute;
+ top:25%;
+ left:0;
+ width:100%;
+ height:6px;
+ background:gold;
+}
+
+/* ANIMATION */
+@keyframes spin{
+ from{transform:rotateY(0deg)}
+ to{transform:rotateY(360deg)}
+}
+ .cube{
+ box-shadow:
+ 0 0 10px gold,
+ 0 0 30px rgba(255,215,0,0.4);
+}
+ animation:spin 10s linear infinite;
 </style>
 </head>
 
