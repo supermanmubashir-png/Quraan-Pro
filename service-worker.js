@@ -1,4 +1,4 @@
-const CACHE_NAME = "quraan-pro-v6.5.7";
+const CACHE_NAME = "quraan-pro-v6.5.8";
 
 // Files to cache (edit if needed)
 const urlsToCache = [
@@ -6,6 +6,7 @@ const urlsToCache = [
   "./index.html",
   "./style.css",
   "./app.js",
+  "./home.html",
   "./about.html",
   "./updates.html",
   "./changelog.html",
