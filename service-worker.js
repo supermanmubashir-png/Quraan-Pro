@@ -1,4 +1,4 @@
-const CACHE_NAME = "quraan-pro-v6.5.8";
+const CACHE_NAME = "quraan-pro-v6.5.9";
 
 // Files to cache (edit if needed)
 const urlsToCache = [
