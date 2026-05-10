@@ -16,22 +16,7 @@
 </head>
 
 <body>
-<div id="phoneSplash" style="
-position:fixed;
-inset:0;
-background:#000;
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:9999;
-color:gold;
-font-size:24px;
-flex-direction:column;
-">
-  <img src="icon.png" style="width:100px; margin-bottom:15px;">
-  Quraan-Pro
-</div>
- 
+
 <!-- OVERLAY -->
 <div id="overlay" onclick="closePanels()"></div>
 
@@ -214,17 +199,5 @@ Ayah: <input id="ayahInput"><br><br>
 </div>
 
 <script src="app.js"></script>
-<script>
-const isPhone = /Android|iPhone|iPad/i.test(navigator.userAgent);
-
-if (isPhone) {
-  setTimeout(() => {
-    document.getElementById("phoneSplash").style.display = "none";
-  }, 2000);
-} else {
-  document.getElementById("phoneSplash").style.display = "none";
-}
-</script>
- 
 </body>
 </html>
