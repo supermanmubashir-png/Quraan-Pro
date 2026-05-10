@@ -2,7 +2,7 @@
   "name": "Quraan Pro",
   "short_name": "Quraan",
    "version": "6.6.0",
-  "start_url":"home.html?v=659fix",
+  "start_url": ".",
   "display": "standalone",
   "theme_color": "#00e5ff",
   "background_color": "#0f2027",
