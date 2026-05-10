@@ -7,6 +7,28 @@
     window.location.href = "home.html";
   }
 </script>
+  <script>
+(function () {
+  try {
+    const isApp = window.matchMedia('(display-mode: standalone)').matches;
+
+    // If installed app → SKIP intro instantly
+    if (isApp) {
+      window.location.replace("home.html");
+      return;
+    }
+
+    // If user disabled intro
+    if (localStorage.getItem("introDisabled") === "true") {
+      window.location.replace("home.html");
+      return;
+    }
+
+  } catch (e) {
+    window.location.replace("home.html");
+  }
+})();
+</script>
 
   <script>
 setTimeout(()=>{
@@ -476,5 +498,11 @@ Opening Home...
 
 </div>
 
+<script>
+setTimeout(() => {
+  window.location.replace("home.html");
+}, 2000);
+</script>
+  
 </body>
 </html>
