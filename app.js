@@ -317,14 +317,20 @@ function toggleTajweed(){
  if(currentSurah) openSurah(currentSurah.number);
 }
 
-// ===== INTRO TOGGLE =====
-const introToggle = document.getElementById("introToggle");
+// ===== INTRO TOGGLE FIX =====
+document.addEventListener("DOMContentLoaded", () => {
 
-// Load saved setting
-if (introToggle) {
-  introToggle.checked = localStorage.getItem("introDisabled") === "true";
+  const introToggle = document.getElementById("introToggle");
 
+  if (!introToggle) return;
+
+  // Load saved value
+  const saved = localStorage.getItem("introDisabled");
+  introToggle.checked = saved === "true";
+
+  // Save on change
   introToggle.addEventListener("change", () => {
     localStorage.setItem("introDisabled", introToggle.checked);
   });
-}
+
+});
