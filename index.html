@@ -13,6 +13,15 @@ setTimeout(()=>{
   window.location.href="home.html";
 }, 1500);
 </script>
+
+  <script>
+setTimeout(() => {
+  // If splash fails, force open app
+  if (!window.location.href.includes("home.html")) {
+    window.location.replace("home.html");
+  }
+}, 3000);
+</script>
    
    <link rel="icon" href="icon.png" type="image/png">
 <link rel="shortcut icon" href="icon.png" type="image/png">
