@@ -4,10 +4,13 @@
 <script>
 (function () {
   try {
-    const isApp = window.matchMedia('(display-mode: standalone)').matches;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
 
-    // If installed app → SKIP intro instantly
-    if (isApp) {
+    // Detect desktop (Windows / large screen)
+    const isDesktop = window.innerWidth > 900;
+
+    // If desktop app → skip splash
+    if (isStandalone && isDesktop) {
       window.location.replace("home.html");
       return;
     }
@@ -23,8 +26,6 @@
   }
 })();
 </script>
-  
-<script>
   // Check intro setting
   if (localStorage.getItem("introDisabled") === "true") {
     window.location.href = "home.html";
