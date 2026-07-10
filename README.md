@@ -117,3 +117,6 @@ Creator of Quraan-Pro 🕌🕌
 🌙 Final Note
 
 Quraan-Pro aims to provide a simple, powerful, and accessible way to engage with the Qur’an anytime, anywhere.
+
+MOST STABLE AND FINAL UPDATE COMING ON 1ST AUG
+MUBASHIR ALI.
