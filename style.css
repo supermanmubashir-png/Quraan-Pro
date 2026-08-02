@@ -401,3 +401,34 @@ body.theme-light #sidebar{
  text-decoration:none;
  margin:0 5px;
 }
+
+/* Fade In */
+body{
+    opacity:0;
+    animation:fadeIn .6s ease forwards;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+
+
+/* ===== Fade In ===== */
+body{
+    opacity:0;
+    animation:pageFadeIn .6s ease forwards;
+}
+
+@keyframes pageFadeIn{
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
