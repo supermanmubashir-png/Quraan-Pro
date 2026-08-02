@@ -7,21 +7,6 @@
     window.location.href = "home.html";
   }
 </script>
-
-  <script>
-setTimeout(()=>{
-  window.location.href="home.html";
-}, 1500);
-</script>
-
-  <script>
-setTimeout(() => {
-  // If splash fails, force open app
-  if (!window.location.href.includes("home.html")) {
-    window.location.replace("home.html");
-  }
-}, 3000);
-</script>
    
    <link rel="icon" href="icon.png" type="image/png">
 <link rel="shortcut icon" href="icon.png" type="image/png">
@@ -39,7 +24,7 @@ setTimeout(() => {
 <!-- AUTO REDIRECT -->
 <meta http-equiv="refresh" content="4;url=home.html">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
 <style>
 /* =========================
@@ -49,9 +34,18 @@ setTimeout(() => {
  position:fixed;
  inset:0;
  background:#000;
+
  display:flex;
  align-items:center;
  justify-content:center;
+
+ padding:
+ env(safe-area-inset-top)
+ 20px
+ env(safe-area-inset-bottom);
+
+ box-sizing:border-box;
+
  z-index:9999;
 
  animation:fadeOut 2.8s ease forwards;
@@ -60,17 +54,27 @@ setTimeout(() => {
 /* WRAPPER */
 .iconWrap{
  position:relative;
+
  display:flex;
  flex-direction:column;
+
  align-items:center;
  justify-content:center;
+
+ text-align:center;
+
+ width:100%;
+ max-width:320px;
+
+ margin:auto;
 }
 
 /* ICON */
 .iconWrap img{
  width:130px;
  height:130px;
-
+display:block;
+margin:0 auto;
  animation:iconEntry 1.2s ease, vibrate 0.3s linear 3;
  filter:drop-shadow(0 0 35px rgba(255,215,0,0.8));
 }
@@ -102,6 +106,10 @@ setTimeout(() => {
 /* APP NAME */
 .appName{
  margin-top:15px;
+
+ width:100%;
+ text-align:center;
+
  font-size:22px;
  color:gold;
  letter-spacing:1px;
@@ -430,6 +438,25 @@ h1{
  0%{background-position:0%}
  100%{background-position:200%}
 }
+
+@media (max-width:600px){
+
+    .iconWrap img{
+        width:120px;
+        height:120px;
+    }
+
+    .ring{
+        width:200px;
+        height:200px;
+    }
+
+    .appName{
+        font-size:20px;
+    }
+
+}
+
 </style>
 </head>
 
