@@ -79,7 +79,7 @@ Quraan-Pro/
 ├── help.html
 ├── updates.html
 ├──about.html
-
+...
 📥 Installation
 🌐 Use in Browser
 
@@ -118,5 +118,5 @@ Creator of Quraan-Pro 🕌🕌
 
 Quraan-Pro aims to provide a simple, powerful, and accessible way to engage with the Qur’an anytime, anywhere.
 
-MOST STABLE AND FINAL UPDATE COMING ON 1ST AUG
+MOST STABLE AND FINAL UPDATE- 6.7.0 ON 1ST AUGEST 2026
 MUBASHIR ALI.
