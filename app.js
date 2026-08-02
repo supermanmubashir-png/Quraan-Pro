@@ -58,6 +58,25 @@ function searchSurah(q){
  ));
 }
 
+
+// Close sidebar when clicking outside it
+document.addEventListener("click", function (e) {
+
+    // If sidebar isn't open, do nothing
+    if (!sidebar.classList.contains("active")) return;
+
+    // Click inside the sidebar? Keep it open.
+    if (sidebar.contains(e.target)) return;
+
+    // Click on the menu button? Keep it open.
+    if (e.target.closest('button[onclick="toggleSidebar()"]')) return;
+
+    // Otherwise close the sidebar
+    sidebar.classList.remove("active");
+
+});
+
+
 // ===== TAJWEED =====
 function tajweed(text){
  if(!tajweedOn) return text;
