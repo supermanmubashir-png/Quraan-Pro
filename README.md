@@ -1,6 +1,6 @@
-🕌 Quraan-Pro
+🕌 Quran Reader+
 
-Quraan-Pro is a modern, lightweight Progressive Web App (PWA) designed for a smooth and focused Qur’an reading experience on both desktop and mobile devices.
+Quran Reader+ is a modern, lightweight Progressive Web App (PWA) designed for a smooth and focused Qur’an reading experience on both desktop and mobile devices.
 
 It combines clean UI, powerful features, and offline capability to feel like a real app — directly in your browser.
 
@@ -112,11 +112,11 @@ This project is open for educational and personal use.
 💥 Author
 
 Mubashir Ali
-Creator of Quraan-Pro 🕌🕌
+Creator of Quran Reader+ 🕌🕌
 
 🌙 Final Note
 
-Quraan-Pro aims to provide a simple, powerful, and accessible way to engage with the Qur’an anytime, anywhere.
+Quran Reader+ aims to provide a simple, powerful, and accessible way to engage with the Qur’an anytime, anywhere.
 
-MOST STABLE AND FINAL UPDATE- 6.7.0 ON 1ST AUGEST 2026
+MOST STABLE AND FINAL UPDATE- 6.7.0 ON 1ST AUGEST 2026---- DONE-----ENJOY!!!
 MUBASHIR ALI.
