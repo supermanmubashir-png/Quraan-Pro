@@ -1,4 +1,4 @@
-const CACHE_NAME = "quraan-pro-v6.6.0";
+const CACHE_NAME = "Quran Reader+-v6.7.0";
 
 // Files to cache (edit if needed)
 const urlsToCache = [
