@@ -1,4 +1,4 @@
-const CACHE_NAME = "Quran Reader+-v6.7.0";
+const CACHE_NAME = "Quran Reader+-v6.7.0-ayahai";
 
 // Files to cache (edit if needed)
 const urlsToCache = [
