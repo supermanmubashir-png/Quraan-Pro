@@ -432,3 +432,7 @@ body{
         opacity:1;
     }
 }
+
+/* Ask AyahAI shortcuts */
+.ask-ayahai-pill{display:inline-flex;align-items:center;justify-content:center;margin:6px 0;padding:5px 10px;border:1px solid var(--accent);border-radius:999px;background:transparent;color:inherit;font-size:12px;cursor:pointer;white-space:nowrap}
+.ask-ayahai-top{border-radius:999px!important;font-size:12px!important;padding:7px 10px!important;white-space:nowrap}
