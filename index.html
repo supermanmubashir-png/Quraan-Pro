@@ -2,506 +2,140 @@
 <html lang="en">
 <head>
 <script>
-  // Check intro setting
   if (localStorage.getItem("introDisabled") === "true") {
     window.location.href = "home.html";
   }
 </script>
-   
-   <link rel="icon" href="icon.png" type="image/png">
+<link rel="icon" href="icon.png" type="image/png">
 <link rel="shortcut icon" href="icon.png" type="image/png">
 <meta property="og:title" content="Quran Reader+ – Quran Reader App">
 <meta name="twitter:title" content="Quran Reader+ – Quran Reader App">
- <meta name="description" content="Quran Reader+ is a modern Quran app with audio recitation, tafseer, bookmarks, tajweed colors, and prayer tools. Read, listen, and learn easily.">
-  <meta property="og:description" content="Read and listen to the Holy Quran with tafseer, bookmarks, tajweed, and smart features in Quraan Pro.">
+<meta name="description" content="Quran Reader+ is a modern Quran app with audio recitation, tafseer, bookmarks, tajweed colors, and prayer tools. Read, listen, and learn easily.">
+<meta property="og:description" content="Read and listen to the Holy Quran with tafseer, bookmarks, tajweed, and smart features in Quraan Pro.">
 <link rel="icon" sizes="32x32" href="icon.png">
 <link rel="icon" sizes="192x192" href="icon.png">
 <link rel="apple-touch-icon" href="icon.png">
-   
+
 <meta charset="UTF-8">
-<title>Quran Reader+</title>
-
-<!-- AUTO REDIRECT -->
-<meta http-equiv="refresh" content="4;url=home.html">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quran Reader+ | Powered by AyahAI</title>
 <style>
-/* =========================
-   ICON SPLASH FINAL
-========================= */
-.iconSplash{
- position:fixed;
- inset:0;
- background:#000;
-
- display:flex;
- align-items:center;
- justify-content:center;
-
- padding:
- env(safe-area-inset-top)
- 20px
- env(safe-area-inset-bottom);
-
- box-sizing:border-box;
-
- z-index:9999;
-
- animation:fadeOut 2.8s ease forwards;
-}
-
-/* WRAPPER */
-.iconWrap{
- position:relative;
-
- display:flex;
- flex-direction:column;
-
- align-items:center;
- justify-content:center;
-
- text-align:center;
-
- width:100%;
- max-width:320px;
-
- margin:auto;
-}
-
-/* ICON */
-.iconWrap img{
- width:130px;
- height:130px;
-display:block;
-margin:0 auto;
- animation:iconEntry 1.2s ease, vibrate 0.3s linear 3;
- filter:drop-shadow(0 0 35px rgba(255,215,0,0.8));
-}
-
-/* ICON ENTRY */
-@keyframes iconEntry{
- 0%{
-  transform:scale(0) rotate(-25deg);
-  opacity:0;
- }
- 60%{
-  transform:scale(1.35) rotate(5deg);
- }
- 100%{
-  transform:scale(1) rotate(0);
-  opacity:1;
- }
-}
-
-/* VIBRATION (SUBTLE) */
-@keyframes vibrate{
- 0%{transform:translate(0)}
- 25%{transform:translate(1px,-1px)}
- 50%{transform:translate(-1px,1px)}
- 75%{transform:translate(1px,1px)}
- 100%{transform:translate(0)}
-}
-
-/* APP NAME */
-.appName{
- margin-top:15px;
-
- width:100%;
- text-align:center;
-
- font-size:22px;
- color:gold;
- letter-spacing:1px;
-
- animation:fadeIn 1.5s ease;
-
- text-shadow:
- 0 0 5px rgba(255,215,0,0.6),
- 0 0 15px rgba(255,215,0,0.4),
- 0 0 25px rgba(255,215,0,0.2);
-}
-
-/* RINGS */
-.ring{
- position:absolute;
- width:220px;
- height:220px;
- border:2px solid rgba(255,215,0,0.4);
- border-radius:50%;
- animation:ringPulse 2s infinite;
-}
-
-.ring2{
- animation-delay:1s;
-}
-
-/* RING ANIMATION */
-@keyframes ringPulse{
- 0%{
-  transform:scale(0.6);
-  opacity:0.6;
- }
- 100%{
-  transform:scale(1.6);
-  opacity:0;
- }
-}
-
-/* FADE IN */
-@keyframes fadeIn{
- from{opacity:0}
- to{opacity:1}
-}
-
-/* FADE OUT */
-@keyframes fadeOut{
- 0%{opacity:1}
- 85%{opacity:1}
- 100%{
-  opacity:0;
-  visibility:hidden;
- }
-}
-/* BASE */
-
-/* BODY */
-/* =========================
-   FINAL BOSS BACKGROUND
-========================= */
-
-body{
- margin:0;
- height:100vh;
- display:flex;
- align-items:center;
- justify-content:center;
- font-family:Segoe UI, sans-serif;
- color:#fff;
- overflow:hidden;
-
- /* MULTI LAYER BACKGROUND */
- background:
- radial-gradient(circle at 20% 30%, rgba(255,215,0,0.12), transparent 40%),
- radial-gradient(circle at 80% 70%, rgba(255,215,0,0.08), transparent 40%),
- radial-gradient(circle at 50% 50%, rgba(255,215,0,0.05), transparent 60%),
- linear-gradient(-45deg,#000,#0a0a0a,#111,#000,#1a1a1a,#000);
-
- background-size:400% 400%;
- animation:bgFlow 15s ease infinite;
-}
-
-/* FLOW */
-@keyframes bgFlow{
- 0%{background-position:0% 50%}
- 50%{background-position:100% 50%}
- 100%{background-position:0% 50%}
-}
-
-/* =========================
-   PARTICLES (DENSE)
-========================= */
-body::before{
- content:"";
- position:absolute;
- width:200%;
- height:200%;
-
- background:
- radial-gradient(circle at 10% 20%, rgba(255,215,0,0.15) 1px, transparent 2px),
- radial-gradient(circle at 30% 80%, rgba(255,215,0,0.12) 1px, transparent 2px),
- radial-gradient(circle at 70% 40%, rgba(255,215,0,0.1) 1px, transparent 2px),
- radial-gradient(circle at 90% 60%, rgba(255,215,0,0.1) 1px, transparent 2px),
- radial-gradient(circle at 50% 10%, rgba(255,215,0,0.08) 1px, transparent 2px),
- radial-gradient(circle at 80% 20%, rgba(255,215,0,0.1) 1px, transparent 2px);
-
- animation:particlesMove 30s linear infinite;
-}
-
-/* PARTICLE MOTION */
-@keyframes particlesMove{
- from{transform:translateY(0)}
- to{transform:translateY(-400px)}
-}
-
-/* =========================
-   GOLD AURA ROTATION
-========================= */
-body::after{
- content:"";
- position:absolute;
- width:160%;
- height:160%;
- background:radial-gradient(circle, rgba(255,215,0,0.08), transparent 70%);
- animation:rotateAura 40s linear infinite;
-}
-
-/* ROTATE */
-@keyframes rotateAura{
- from{transform:rotate(0deg)}
- to{transform:rotate(360deg)}
-}
-
-/* =========================
-   LIGHT BEAMS
-========================= */
-.light{
- position:absolute;
- width:200%;
- height:200%;
- background:linear-gradient(
- 120deg,
- transparent 40%,
- rgba(255,215,0,0.08),
- transparent 60%
-);
- animation:beamMove 8s linear infinite;
-}
-
-@keyframes beamMove{
- from{transform:translateX(-100%)}
- to{transform:translateX(100%)}
-}
-
-/* =========================
-   ISLAMIC PATTERN (SUBTLE)
-========================= */
-.pattern{
- position:absolute;
- inset:0;
- background-image:
- radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
- background-size:40px 40px;
- opacity:0.3;
-}
-
-/* =========================
-   STAR SHIMMER
-========================= */
-.stars{
- position:absolute;
- inset:0;
- background:
- radial-gradient(white 1px, transparent 1px);
- background-size:3px 3px;
- opacity:0.05;
- animation:starTwinkle 2s infinite alternate;
-}
-
-@keyframes starTwinkle{
- from{opacity:0.03}
- to{opacity:0.08}
-}
-
-/* =========================
-   VIGNETTE (DARK EDGES)
-========================= */
-html::after{
- content:"";
- position:fixed;
- inset:0;
- background:radial-gradient(circle, transparent 50%, rgba(0,0,0,0.9));
- pointer-events:none;
-}tateGlow 30s linear infinite;
-}
-
-/* PARTICLE MOTION */
-@keyframes floatParticles{
- from{transform:translateY(0)}
- to{transform:translateY(-300px)}
-}
-
-/* ROTATING GLOW */
-@keyframes rotateGlow{
- from{transform:rotate(0deg)}
- to{transform:rotate(360deg)}
-}
-
-/* VIGNETTE (DARK EDGES) */
-html::after{
- content:"";
- position:fixed;
- inset:0;
- background:radial-gradient(circle, transparent 50%, rgba(0,0,0,0.8));
- pointer-events:none;
-}
-/* FLOAT ANIMATION */
-@keyframes float{
- from{transform:translateY(0)}
- to{transform:translateY(-200px)}
-}
-
-/* MAIN */
-.container{
- text-align:center;
- z-index:2;
- animation:fadeIn 1.5s ease;
-}
-
-/* ICON */
-.icon{
- font-size:70px;
- margin-bottom:15px;
- animation:pop 1s ease;
-}
-
-/* TITLE */
-h1{
- margin:0;
- font-size:36px;
- color:gold;
- letter-spacing:1px;
- animation:slideUp 1.2s ease;
- text-shadow:0 0 15px rgba(255,215,0,0.5);
-}
-
-/* SHIMMER TEXT */
-.tagline{
- margin-top:10px;
- font-size:14px;
- background:linear-gradient(90deg,#aaa,#fff,#aaa);
- background-size:200%;
- -webkit-background-clip:text;
- -webkit-text-fill-color:transparent;
- animation:shine 3s linear infinite;
-}
-
-/* LOADER */
-.loader{
- margin-top:25px;
- display:flex;
- justify-content:center;
- gap:8px;
-}
-
-.dot{
- width:10px;
- height:10px;
- background:gold;
- border-radius:50%;
- animation:bounce 1s infinite;
-}
-
-.dot:nth-child(2){animation-delay:0.2s}
-.dot:nth-child(3){animation-delay:0.4s}
-
-/* STATUS TEXT */
-.status{
- margin-top:15px;
- font-size:12px;
- opacity:0.6;
- animation:fadeIn 3s ease;
-}
-
-/* BUTTON */
-.btn{
- display:inline-block;
- margin-top:25px;
- padding:12px 20px;
- background:gold;
- color:#000;
- text-decoration:none;
- border-radius:10px;
- font-weight:bold;
- transition:0.3s;
- animation:fadeIn 3s ease;
-}
-
-.btn:hover{
- transform:scale(1.05);
- background:#ffd700;
-}
-
-/* ANIMATIONS */
-@keyframes fadeIn{
- from{opacity:0}
- to{opacity:1}
-}
-
-@keyframes slideUp{
- from{transform:translateY(20px); opacity:0}
- to{transform:translateY(0); opacity:1}
-}
-
-@keyframes pop{
- 0%{transform:scale(0)}
- 80%{transform:scale(1.2)}
- 100%{transform:scale(1)}
-}
-
-@keyframes bounce{
- 0%,100%{transform:translateY(0)}
- 50%{transform:translateY(-10px)}
-}
-
-@keyframes shine{
- 0%{background-position:0%}
- 100%{background-position:200%}
-}
-
-@media (max-width:600px){
-
-    .iconWrap img{
-        width:120px;
-        height:120px;
-    }
-
-    .ring{
-        width:200px;
-        height:200px;
-    }
-
-    .appName{
-        font-size:20px;
-    }
-
-}
-
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;background:#040b1f;color:#fff}
+@keyframes bgShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes auroraA{0%{transform:translate(-20%,-10%) rotate(0) scale(1)}50%{transform:translate(15%,10%) rotate(180deg) scale(1.4)}100%{transform:translate(-20%,-10%) rotate(360deg) scale(1)}}
+@keyframes auroraB{0%{transform:translate(20%,10%) scale(1.2)}50%{transform:translate(-15%,-15%) scale(.8)}100%{transform:translate(20%,10%) scale(1.2)}}
+@keyframes auroraC{0%,100%{opacity:.25;transform:scale(1)}50%{opacity:.55;transform:scale(1.5)}}
+@keyframes starTwinkle{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:1;transform:scale(1.3)}}
+@keyframes shootingStar{0%{transform:translate3d(0,0,0) rotate(45deg);opacity:0}10%{opacity:1}100%{transform:translate3d(120vw,120vh,0) rotate(45deg);opacity:0}}
+@keyframes logoFloat{0%,100%{transform:translateY(-12px) rotate(-2deg)}50%{transform:translateY(12px) rotate(2deg)}}
+@keyframes logoPulse{0%,100%{box-shadow:0 0 0 0 rgba(94,234,212,.55),0 0 60px rgba(94,234,212,.35)}50%{box-shadow:0 0 0 28px rgba(94,234,212,0),0 0 120px rgba(94,234,212,.6)}}
+@keyframes ringSpin{to{transform:rotate(360deg)}}
+@keyframes ringSpinRev{to{transform:rotate(-360deg)}}
+@keyframes ringPulse{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.18);opacity:.2}}
+@keyframes titleGlow{0%,100%{text-shadow:0 0 18px rgba(94,234,212,.5),0 0 45px rgba(56,189,248,.35)}50%{text-shadow:0 0 34px rgba(94,234,212,.9),0 0 90px rgba(56,189,248,.6)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shineSweep{0%{transform:translateX(-150%) skewX(-20deg)}100%{transform:translateX(250%) skewX(-20deg)}}
+@keyframes gradientText{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+@keyframes bounceSoft{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes particleFloat{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:.9}100%{transform:translateY(-90vh) translateX(var(--dx,20px));opacity:0}}
+@keyframes gridMove{0%{background-position:0 0}100%{background-position:0 60px}}
+@keyframes scanline{0%{top:-10%}100%{top:110%}}
+@keyframes iconTilt{0%,100%{transform:rotateY(0) rotateX(0)}25%{transform:rotateY(14deg) rotateX(6deg)}50%{transform:rotateY(0) rotateX(-8deg)}75%{transform:rotateY(-14deg) rotateX(6deg)}}
+@keyframes iconRise{0%{opacity:0;transform:translateY(80px) scale(.7)}100%{opacity:1;transform:translateY(0) scale(1)}}
+/* Horizontal wind animation */
+@keyframes windSway{0%,100%{transform:translateX(0) skewX(0)}20%{transform:translateX(-18px) skewX(-7deg)}45%{transform:translateX(14px) skewX(5deg)}70%{transform:translateX(-8px) skewX(-3deg)}}
+@keyframes windDrift{0%{transform:translateX(-130%) skewX(-25deg);opacity:0}18%{opacity:.9}100%{transform:translateX(240%) skewX(-25deg);opacity:0}}
+@keyframes windWave{0%,100%{letter-spacing:2px}50%{letter-spacing:7px}}
+@keyframes windStreak{0%{transform:translateX(-120vw) scaleY(1);opacity:0}10%{opacity:.55}90%{opacity:.35}100%{transform:translateX(120vw) scaleY(1.4);opacity:0}}
+.bg{position:fixed;inset:0;background:linear-gradient(125deg,#040b1f,#071a3a,#101c4a,#071a3a,#040b1f);background-size:400% 400%;animation:bgShift 24s ease-in-out infinite}
+.aurora{position:absolute;border-radius:50%;filter:blur(90px);mix-blend-mode:screen}
+.a1{width:55vw;height:55vw;left:-12vw;top:-18vw;background:radial-gradient(circle,#14b8a6,transparent 65%);animation:auroraA 26s ease-in-out infinite}
+.a2{width:60vw;height:60vw;right:-18vw;bottom:-22vw;background:radial-gradient(circle,#3b82f6,transparent 65%);animation:auroraB 32s ease-in-out infinite}
+.a3{width:40vw;height:40vw;left:30vw;top:20vh;background:radial-gradient(circle,#a855f7,transparent 65%);animation:auroraC 18s ease-in-out infinite}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(148,163,184,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.09) 1px,transparent 1px);background-size:60px 60px;animation:gridMove 8s linear infinite;mask-image:radial-gradient(circle at center,#000 30%,transparent 75%)}
+.stars{position:absolute;inset:0}
+.star{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;animation:starTwinkle 3s ease-in-out infinite}
+.shooting{position:absolute;top:12%;left:-10%;width:180px;height:2px;background:linear-gradient(90deg,transparent,#fff);animation:shootingStar 7s linear infinite}
+.scan{position:absolute;left:0;right:0;height:140px;background:linear-gradient(180deg,transparent,rgba(94,234,212,.07),transparent);animation:scanline 9s linear infinite}
+.windLayer{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.wind{position:absolute;height:2px;width:34vw;background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);filter:blur(.5px);animation:windStreak linear infinite}
+.center{position:relative;z-index:3;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+.iconWrap{position:relative;width:190px;height:190px;margin-bottom:34px;animation:iconRise 1.4s cubic-bezier(.2,.8,.2,1) both}
+.iconWrap::before,.iconWrap::after{content:"";position:absolute;inset:-18px;border-radius:50%;border:2px solid rgba(94,234,212,.35);animation:ringPulse 3.2s ease-in-out infinite}
+.iconWrap::after{inset:-38px;border-color:rgba(96,165,250,.25);animation-delay:.7s}
+.icon{width:100%;height:100%;object-fit:contain;border-radius:34px;padding:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(12px);animation:logoFloat 6s ease-in-out infinite,logoPulse 3.4s ease-in-out infinite,iconTilt 9s ease-in-out infinite}
+.ring{position:absolute;inset:-58px;border-radius:50%;border:1px dashed rgba(148,163,184,.35);animation:ringSpin 18s linear infinite}
+.ring2{position:absolute;inset:-86px;border-radius:50%;border:1px solid rgba(94,234,212,.15);animation:ringSpinRev 26s linear infinite}
+h1{font-size:clamp(2.4rem,7vw,5rem);font-weight:800;background:linear-gradient(90deg,#5eead4,#60a5fa,#c084fc,#5eead4);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradientText 7s linear infinite,titleGlow 4s ease-in-out infinite,fadeUp 1.2s .3s both}
+.titleWind{position:relative;display:inline-block;animation:windSway 5.5s ease-in-out infinite,windWave 7s ease-in-out infinite}
+.titleWind::after{content:"";position:absolute;top:-12%;bottom:-12%;left:0;width:38%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);filter:blur(6px);animation:windDrift 3.6s linear infinite;pointer-events:none}
+.powered{margin-top:10px;font-size:clamp(.95rem,2.5vw,1.35rem);letter-spacing:5px;text-transform:uppercase;color:#94a3b8;animation:fadeUp 1.2s .6s both}
+.powered b{color:#5eead4}
+.tagline{margin-top:22px;max-width:640px;color:#cbd5e1;line-height:1.7;font-size:clamp(.95rem,2.2vw,1.1rem);animation:fadeUp 1.2s .85s both}
+.badge{display:inline-flex;align-items:center;gap:10px;margin-top:30px;padding:12px 22px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(94,234,212,.35);backdrop-filter:blur(10px);animation:fadeUp 1.2s 1.05s both,bounceSoft 4s ease-in-out infinite}
+.dot{width:10px;height:10px;border-radius:50%;background:#5eead4;box-shadow:0 0 12px #5eead4;animation:blink 1.4s infinite}
+.badge span{font-size:.95rem;letter-spacing:1px;color:#e2e8f0}
+.enter{margin-top:34px;padding:16px 42px;border:0;border-radius:999px;font-size:1.05rem;font-weight:700;letter-spacing:1px;color:#04121f;background:linear-gradient(90deg,#5eead4,#60a5fa);cursor:pointer;position:relative;overflow:hidden;animation:fadeUp 1.2s 1.25s both,bounceSoft 3.5s ease-in-out infinite;transition:transform .25s,box-shadow .25s}
+.enter:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 18px 45px rgba(94,234,212,.35)}
+.enter::after{content:"";position:absolute;top:0;bottom:0;width:45%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:shineSweep 2.8s linear infinite}
+.particles{position:absolute;inset:0;pointer-events:none}
+.p{position:absolute;bottom:-20px;width:6px;height:6px;border-radius:50%;background:rgba(94,234,212,.7);animation:particleFloat linear infinite}
+#windBtn{position:fixed;bottom:22px;right:22px;z-index:9;padding:12px 18px;border-radius:999px;border:1px solid rgba(94,234,212,.4);background:rgba(255,255,255,.08);color:#e2e8f0;backdrop-filter:blur(10px);cursor:pointer;font-weight:600}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
-
 <body>
-<div class="iconSplash">
+<div class="bg"></div>
+<div class="aurora a1"></div><div class="aurora a2"></div><div class="aurora a3"></div>
+<div class="grid"></div>
+<div class="stars" id="stars"></div>
+<div class="shooting"></div>
+<div class="scan"></div>
+<div class="windLayer" id="windLayer"></div>
+<div class="particles" id="particles"></div>
+<main class="center">
   <div class="iconWrap">
-    <img src="icon.png" alt="App Icon">
-
-    <!-- GLOW TEXT -->
-    <div class="appName">Quran Reader+</div>
-
-    <!-- RINGS -->
-    <div class="ring"></div>
-    <div class="ring ring2"></div>
+    <div class="ring"></div><div class="ring2"></div>
+    <img class="icon" src="icon.png" alt="Quran Reader+ icon">
   </div>
-</div>
-   <div class="pattern"></div>
-<div class="stars"></div>
-<div class="light"></div>
-
-<div class="container">
-
-<div class="icon">🕌</div>
-
-<h1>Quran Reader+</h1>
-
-<div class="tagline">
-Read the Qur’an with clarity & beauty
-</div>
-
-<!-- LOADER -->
-<div class="loader">
-<div class="dot"></div>
-<div class="dot"></div>
-<div class="dot"></div>
-</div>
-
-<div class="status">
-Opening Home...
-</div>
-
-<!-- MANUAL BUTTON -->
-<a href="home.html" class="btn">Enter Now</a>
-
-</div>
-
+  <h1><span class="titleWind">Quran Reader+</span></h1>
+  <div class="powered">Powered by <b>AyahAI</b></div>
+  <p class="tagline">Read, reflect, and understand the Holy Quran with an intelligent, beautiful reading experience.</p>
+  <div class="badge"><div class="dot"></div><span>Loading your spiritual journey…</span></div>
+  <button class="enter" onclick="document.body.style.opacity=0;setTimeout(()=>location.href='home.html',450)">Get Started</button>
+</main>
+<button id="windBtn">🌬️ Wind Sound: On</button>
+<script>
+const stars=document.getElementById('stars');
+for(let i=0;i<130;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=(Math.random()*4)+'s';s.style.animationDuration=(2+Math.random()*4)+'s';stars.appendChild(s);}
+const parts=document.getElementById('particles');
+for(let i=0;i<55;i++){const p=document.createElement('div');p.className='p';p.style.left=Math.random()*100+'%';p.style.setProperty('--dx',(Math.random()*120-60)+'px');p.style.animationDuration=(7+Math.random()*12)+'s';p.style.animationDelay=(Math.random()*12)+'s';p.style.width=p.style.height=(3+Math.random()*6)+'px';parts.appendChild(p);}
+const windLayer=document.getElementById('windLayer');
+for(let i=0;i<16;i++){const w=document.createElement('div');w.className='wind';w.style.top=(Math.random()*100)+'%';w.style.animationDuration=(2.5+Math.random()*4)+'s';w.style.animationDelay=(Math.random()*5)+'s';windLayer.appendChild(w);}
+let ac,windOn=false,nodes=null;
+function makeWind(){
+ ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+ const buf=ac.createBuffer(1,ac.sampleRate*4,ac.sampleRate),d=buf.getChannelData(0);
+ let last=0;
+ for(let i=0;i<d.length;i++){const white=Math.random()*2-1;last=(last+.02*white)/1.02;d[i]=last*3.2;}
+ const src=ac.createBufferSource();src.buffer=buf;src.loop=true;
+ const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=650;
+ const hp=ac.createBiquadFilter();hp.type='highpass';hp.frequency.value=120;
+ const gain=ac.createGain();gain.gain.value=0;
+ const lfo=ac.createOscillator();lfo.frequency.value=.16;
+ const lfoGain=ac.createGain();lfoGain.gain.value=.10;
+ lfo.connect(lfoGain);lfoGain.connect(gain.gain);
+ src.connect(hp);hp.connect(lp);lp.connect(gain);gain.connect(ac.destination);
+ src.start();lfo.start();
+ return {src,gain,lfo};
+}
+async function startWind(){nodes=makeWind();await ac.resume();nodes.gain.gain.linearRampToValueAtTime(.22,ac.currentTime+1.2);document.getElementById('windBtn').textContent='🌬️ Wind Sound: On';}
+function stopWind(){if(!nodes)return;nodes.gain.gain.linearRampToValueAtTime(0,ac.currentTime+.8);setTimeout(()=>{try{nodes.src.stop();nodes.lfo.stop();}catch(e){}},900);document.getElementById('windBtn').textContent='🌬️ Wind Sound: Off';}
+document.getElementById('windBtn').onclick=()=>{windOn=!windOn;windOn?startWind():stopWind();};
+// Browsers require a user interaction before audio; start on first tap/click.
+window.addEventListener('pointerdown',function once(){if(!windOn){windOn=true;startWind();}window.removeEventListener('pointerdown',once);},{once:true});
+</script>
 </body>
 </html>
