@@ -94,6 +94,7 @@ async function openSurah(n){
 
  let t = await fetch(`https://api.alquran.cloud/v1/surah/${n}/${translation}`);
  let trans = (await t.json()).data.ayahs;
+ window.currentTranslations = trans;
 
  let html = "";
 
@@ -108,6 +109,7 @@ async function openSurah(n){
    ${showTranslation ? `<div>${trans[i].text}</div>` : ""}
 
    <div class="controls">
+    <button class="ask-ayahai-pill" onclick="askAyahAI(${n},${i+1})">✨ Ask AyahAI</button>
     <button onclick="togglePlay(${i},this)">▶️</button>
     <button onclick="setLoop(${i})">🔁</button>
     <button onclick="setContinue(${i})">⏭</button>
@@ -116,6 +118,13 @@ async function openSurah(n){
  });
 
  content.innerHTML = html;
+}
+
+function askAyahAI(surahNumber, ayahNumber){
+ const ayah = currentSurah && currentSurah.ayahs[ayahNumber-1];
+ const trans = window.currentTranslations && window.currentTranslations[ayahNumber-1];
+ const params = new URLSearchParams({askAyahAI:"1",surah:currentSurah ? currentSurah.englishName : String(surahNumber),surahNumber:String(surahNumber),ayahNumber:String(ayahNumber),arabic:ayah ? ayah.text : "",translation:trans ? trans.text : ""});
+ window.open("https://supermanmubashir-png.github.io/AyahAI/home.html?" + params.toString(), "_blank");
 }
 
 // ===== AUDIO =====
